@@ -6,6 +6,31 @@
   <router-view/>
 </template>
 
+<script>
+
+export default {
+  name: 'App',
+
+  created() {
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
+      }
+    };
+
+    this.axios
+      .get('https://api.themoviedb.org/3/search/collection', options)
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch(err => console.error(err));
+  }
+}
+
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
