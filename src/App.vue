@@ -1,37 +1,39 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link>
-  </nav>
-  <router-view/>
+  <Header></Header>
 </template>
 
 <script>
 
-export default {
-  name: 'App',
+  import Header from '@/components/Header.vue'
 
-  created() {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
-      }
-    };
+  export default {
+    name: 'App',
 
-    this.axios
-      .get('https://api.themoviedb.org/3/search/collection', options)
-      .then((response) => {
-        console.log(response.data)
-      })
-      .catch(err => console.error(err));
+    components: {Header},
+
+    created() {
+        
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
+        }
+      };
+        
+      this.axios
+        .get('https://api.themoviedb.org/3/discover/movie', options)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch(err => console.error(err));
+    }
   }
-}
 
 </script>
 
 <style>
-  
+
   body {
     margin: 0;
     min-height: 3000px;

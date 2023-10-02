@@ -6,6 +6,26 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/filmes',
+    name: 'filmes',
+    component: () => import( '../views/MovieView.vue')
+  },
+  {
+    path: '/series',
+    name: 'series',
+    component: () => import( '../views/SeriesView.vue')
+  },
+  {
+    path: '/favoritos',
+    name: 'favoritos',
+    component: () => import( '../views/FavoritesView.vue')
+  },
+  {
+    path: '/entrar',
+    name: 'entrar',
+    component: () => import( '../views/LoginView.vue')
   }
 ]
 
