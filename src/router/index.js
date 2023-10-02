@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/filmes',
     name: 'filmes',
-    component: () => import( '../views/MovieView.vue')
+    component: () => import( '../views/MoviesView.vue')
   },
   {
     path: '/series',
