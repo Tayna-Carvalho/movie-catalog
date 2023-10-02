@@ -1,7 +1,6 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">Home</router-link>
   </nav>
   <router-view/>
 </template>
@@ -32,24 +31,70 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  
+  body {
+    margin: 0;
+    min-height: 3000px;
 
-nav {
-  padding: 30px;
-}
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+    color-scheme: light dark;
+    color: white;
+    background-color: var(--Preto, #1B1B1B);
+  }
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+  .container {
+    padding: 0 64px;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  h1 {
+    font-size: 68px;
+    line-height: 72px;
+  }
+
+  h2 {
+    font-size: 42px;
+    line-height: 48px;
+  }
+
+  h3 {
+    font-size: 26px;
+    line-height: 48px;
+  }
+
+  h4 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  p {
+    font-family: Nunito;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  small {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  caption {
+    font-size: 12px;
+    line-height: 16px; 
+  }
+
+  button {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-transform: uppercase;
+  }
+
 </style>
