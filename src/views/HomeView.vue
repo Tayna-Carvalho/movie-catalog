@@ -1,6 +1,15 @@
 <template>
-  <h1>Início</h1>
+  <Hero></Hero>
 </template>
 
 <script>
+
+  import Hero from '@/components/Hero.vue'
+
+  export default {
+    name: 'Header-component',
+
+    components: {Hero}
+  }
+
 </script>
