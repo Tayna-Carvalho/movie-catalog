@@ -32,13 +32,13 @@
 
 <style>
 
-    .hero-image img {
+    .hero .hero-image img {
         width: 1920px;
         height: 640px;
         flex-shrink: 0;
     }
 
-    .content {
+    .hero .content {
         position: absolute;
         top: 0;
         left: 64px;
@@ -52,11 +52,11 @@
         z-index: 0;
     }
 
-    .welcome-message {
+    .hero .content .welcome-message {
         margin: 0 0 10px 0;
     }
 
-    .call-message {
+    .hero .content .call-message {
         color: var(--Roxo-Claro, #AC4DFF);
         margin: 0 0 27px 0;
     }
