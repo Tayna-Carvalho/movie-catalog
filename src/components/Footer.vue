@@ -22,6 +22,7 @@
     footer {
         background-color: blueviolet;
         height: 128px;
+        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -30,14 +31,9 @@
 
         background: var(--Preto, #1B1B1B);
         box-shadow: 0px -16px 50px 0px rgba(0, 0, 0, 0.15);
-
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
     }
 
-    .logotype {
+    footer .logotype {
         width: 36px;
         height: 40px;
         flex-shrink: 0;   
