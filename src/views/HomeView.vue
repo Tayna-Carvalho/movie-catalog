@@ -9,7 +9,11 @@
   export default {
     name: 'Header-component',
 
-    components: {Hero}
+    components: {Hero},
+
+    computed: {
+      movies() {return this.$store.state.movies}
+    }
   }
 
 </script>
