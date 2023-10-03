@@ -10,10 +10,10 @@
 
                 <nav>
                     <ul>
-                        <li><h3><router-link to="/">Início</router-link></h3></li>
-                        <li><h3><router-link to="/filmes">Filmes</router-link></h3></li>
-                        <li><h3><router-link to="/series">Séries</router-link></h3></li>
-                        <li><h3><router-link to="/favoritos">Favoritos</router-link></h3></li>
+                        <li><h3><router-link to="/" class="header-navegation">Início</router-link></h3></li>
+                        <li><h3><router-link to="/filmes" class="header-navegation">Filmes</router-link></h3></li>
+                        <li><h3><router-link to="/series" class="header-navegation">Séries</router-link></h3></li>
+                        <li><h3><router-link to="/favoritos" class="header-navegation">Favoritos</router-link></h3></li>
                     </ul>
                 </nav>
 
@@ -22,7 +22,7 @@
             <section class="right-content">
 
                 <MinimalistSearchBar></MinimalistSearchBar>
-                <h3><router-link to="/entrar">Entrar</router-link></h3>
+                <h3><router-link to="/entrar" class="header-navegation">Entrar</router-link></h3>
 
             </section>
         
@@ -93,6 +93,14 @@
         padding: 0;
 
         list-style-type: none;
+    }
+
+    .header-navegation:hover {
+        color: var(--Roxo-Claro, #AC4DFF);
+    }
+
+    .header-navegation:active {
+        color: var(--Verde-Claro, #AAF766);
     }
 
 </style>
