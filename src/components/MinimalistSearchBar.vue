@@ -1,20 +1,25 @@
 <template>
 
-    <div class="minimalist-search-bar">
-        <a href="#" class="search-button">
+    <div class="minimalistSearchBar">
+        <a href="#" class="searchButton">
             <img src="../assets/search-icon.svg" alt="loupe">
         </a>
-        <input type="text" class="search-text">
+        <input type="text" class="searchText">
     </div>
 
 </template>
 
 <script>
+
+    export default {
+        name: 'minimalist-search-bar-component'
+    }
+
 </script>
 
 <style>
 
-    .minimalist-search-bar {
+    .minimalistSearchBar {
         border-radius: 40px;
 
         display: flex;
@@ -23,12 +28,12 @@
         gap: 8px;
     }
 
-    .minimalist-search-bar .search-button img {
+    .minimalistSearchBar .searchButton img {
         width: 32px;
         height: 32px;
     }
 
-    .minimalist-search-bar input {
+    .minimalistSearchBar input {
         width: 0;
         height: 32px;
 
@@ -42,11 +47,11 @@
         transition: .4s;
     }
 
-    .minimalist-search-bar:hover > .search-text {
+    .minimalistSearchBar:hover > .searchText {
         width: 363px;
     }
 
-    .minimalist-search-bar:hover {
+    .minimalistSearchBar:hover {
         border: 1px solid var(--Roxo-Claro, #AC4DFF);
         padding: 8px 18px 8px 18px;
     }

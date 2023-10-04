@@ -3,4 +3,9 @@
 </template>
   
 <script>
+
+    export default {
+        name: 'favorites-view'
+    }
+
 </script>

@@ -1,3 +1,30 @@
+<template>
+
+    <section class="sort">
+
+        <div id="dropdown">
+
+            <div class="select" 
+            @click="selected = !selected" 
+            :class="selected ? 'selected' : 'notSelected'">
+                <h3>Ordenar</h3>
+                <img src="../assets/arrow-icon.svg" class="arrow">
+            </div>
+
+            <ul class="options" v-if="selected">
+                <li @click="chosen='popularity'" :class="{optionSelected : chosen === 'popularity'}"><h3>Popularidade</h3></li>
+                <li @click="chosen='rating'" :class="{optionSelected : chosen === 'rating'}"><h3>Avaliação</h3></li>
+                <li @click="chosen='date'" :class="{optionSelected : chosen === 'date'}"><h3>Data de lançamento</h3></li>
+                <li @click="chosen='AZ'" :class="{optionSelected : chosen === 'AZ'}"><h3>Título (A-Z)</h3></li>
+                <li @click="chosen='ZA'" :class="{optionSelected : chosen === 'ZA'}"><h3>Título (Z-A)</h3></li>
+            </ul>
+
+        </div>
+        
+    </section>
+
+</template>
+
 <script>
 
     export default {
@@ -13,35 +40,6 @@
     }
 
 </script>
-
-<template>
-
-    <section class="sort">
-
-        <div id="dropdown">
-
-            <div class="select" 
-            @click="selected = !selected" 
-            :class="selected ? 'selected' : 'not-selected'">
-                <h3>Ordenar</h3>
-                <img src="../assets/arrow-icon.svg" class="arrow">
-            </div>
-
-            <ul class="options" v-if="selected">
-                <li @click="chosen='popularity'" class="option-selected"><h3>Popularidade</h3></li>
-                <li @click="chosen='rating'" :class="{optionSelected : chosen === 'rating'}"><h3>Avaliação</h3></li>
-                <li @click="chosen='date'" :class="{optionSelected : chosen === 'date'}"><h3>Data de lançamento</h3></li>
-                <li @click="chosen='AZ'" :class="{optionSelected : chosen === 'AZ'}"><h3>Título (A-Z)</h3></li>
-                <li @click="chosen='ZA'" :class="{optionSelected : chosen === 'ZA'}"><h3>Título (Z-A)</h3></li>
-            </ul>
-
-            <h2>{{ chosen }}</h2>
-
-        </div>
-        
-    </section>
-
-</template>
 
 <style>
 
@@ -61,7 +59,7 @@
         border-radius: 20px 20px 0 0;
     }
 
-    .not-selected {
+    .notSelected {
         border-radius: 20px;
     }
 
@@ -69,7 +67,7 @@
         transform: rotate(0deg);
     }
 
-    .not-selected .arrow {
+    .notSelected .arrow {
         transform: rotate(-90deg);
     }
 
@@ -99,7 +97,7 @@
         color: var(--Roxo-Claro, #AC4DFF);
     }
 
-    .sort #dropdown .option .option-selected {
+    .sort #dropdown .options .optionSelected {
         background: var(--Roxo-Escuro, #550899);
         color: white;
     }

@@ -2,14 +2,14 @@
 
     <section class="hero">
 
-        <div class="hero-image">
+        <div class="heroImage">
             <img src="../assets/hero-image.jpg" alt="children watching movie">
         </div>
 
         <div class="content">
             
-            <h1 class="welcome-message">Bem-vindo(a).</h1>
-            <h3 class="call-message">Explore novos mundos, no conforto da sua casa!</h3>
+            <h1 class="welcomeMessage">Bem-vindo(a).</h1>
+            <h3 class="callMessage">Explore novos mundos, no conforto da sua casa!</h3>
             <SearchBar></SearchBar>
 
         </div>
@@ -20,10 +20,10 @@
 
 <script>
 
-    import SearchBar from '@/components/SearchBar.vue'
+    import SearchBar from '@/components/SearchBar.vue';
 
     export default {
-        name: 'Hero-component',
+        name: 'hero-component',
 
         components: {SearchBar}
     }
@@ -32,7 +32,7 @@
 
 <style>
 
-    .hero .hero-image img {
+    .hero .heroImage img {
         width: 1920px;
         height: 640px;
         flex-shrink: 0;
@@ -52,11 +52,11 @@
         z-index: 0;
     }
 
-    .hero .content .welcome-message {
+    .hero .content .welcomeMessage {
         margin: 0 0 10px 0;
     }
 
-    .hero .content .call-message {
+    .hero .content .callMessage {
         color: var(--Roxo-Claro, #AC4DFF);
         margin: 0 0 27px 0;
     }

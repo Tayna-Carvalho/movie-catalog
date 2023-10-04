@@ -4,25 +4,25 @@
 
         <div class="container">
 
-            <section class="left-content">
+            <section class="leftContent">
 
                 <section class="logotype"><img src="../assets/logo-name-white.svg" alt="logotype"></section>
 
                 <nav>
                     <ul>
-                        <li><h3><router-link to="/" class="header-navegation">Início</router-link></h3></li>
-                        <li><h3><router-link to="/filmes" class="header-navegation">Filmes</router-link></h3></li>
-                        <li><h3><router-link to="/series" class="header-navegation">Séries</router-link></h3></li>
-                        <li><h3><router-link to="/favoritos" class="header-navegation">Favoritos</router-link></h3></li>
+                        <li><h3><router-link to="/" class="headerNavegation">Início</router-link></h3></li>
+                        <li><h3><router-link to="/filmes" class="headerNavegation">Filmes</router-link></h3></li>
+                        <li><h3><router-link to="/series" class="headerNavegation">Séries</router-link></h3></li>
+                        <li><h3><router-link to="/favoritos" class="headerNavegation">Favoritos</router-link></h3></li>
                     </ul>
                 </nav>
 
             </section>
 
-            <section class="right-content">
+            <section class="rightContent">
 
                 <MinimalistSearchBar></MinimalistSearchBar>
-                <h3><router-link to="/entrar" class="header-navegation">Entrar</router-link></h3>
+                <h3><router-link to="/entrar" class="headerNavegation">Entrar</router-link></h3>
 
             </section>
         
@@ -36,10 +36,10 @@
 
 <script>
     
-    import MinimalistSearchBar from '@/components/MinimalistSearchBar.vue'
+    import MinimalistSearchBar from '@/components/MinimalistSearchBar.vue';
 
     export default {
-        name: 'Header-component',
+        name: 'header-component',
 
         components: {MinimalistSearchBar}
     }
@@ -67,25 +67,25 @@
         z-index: 1;
     }
 
-    header .container .left-content {
+    header .container .leftContent {
         display: flex;
         align-items: center;
         gap: 23px;
     }
 
-    header .container .right-content {
+    header .container .rightContent {
         display: flex;
         align-items: center;
         gap: 83px;
     }
 
-    header .container .left-content  .logotype {
+    header .container .leftContent  .logotype {
         width: 127px;
         height: 30px;
         flex-shrink: 0; 
     }
 
-    header .container .left-content ul {
+    header .container .leftContent ul {
         display: flex;
         gap: 37px;
 
@@ -95,11 +95,11 @@
         list-style-type: none;
     }
 
-    .header-navegation:hover {
+    .headerNavegation:hover {
         color: var(--Roxo-Claro, #AC4DFF);
     }
 
-    .header-navegation:active {
+    .headerNavegation:active {
         color: var(--Verde-Claro, #AAF766);
     }
 

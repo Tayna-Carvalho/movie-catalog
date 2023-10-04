@@ -1,6 +1,6 @@
 <template>
 
-    <form class="search-bar">
+    <form class="searchBar">
         <input type="text" placeholder="Pesquisar">
         <button>buscar</button>
     </form>
@@ -8,11 +8,16 @@
 </template>
 
 <script>
+
+    export default {
+        name: 'search-bar-component'
+    }
+
 </script>
 
 <style>
 
-    .search-bar {
+    .searchBar {
         height: 64px;
         border-radius: 20px;
 
@@ -20,7 +25,7 @@
         background: var(--Branco-transparente, rgba(255, 255, 255, 0.30)); 
     }
 
-    .search-bar input{
+    .searchBar input{
         width: 605px; 
         height: 100%;
         margin-left: 18px;
@@ -34,7 +39,7 @@
         line-height: 24px;
     }
 
-    .search-bar button {
+    .searchBar button {
         width: 129px;
         height: 100%;
         border-radius: 0px 20px 20px 0px;
@@ -43,11 +48,11 @@
         padding: 0;
     }
 
-    .search-bar button:hover {
+    .searchBar button:hover {
         background: var(--Roxo-Escuro, #550899);
     }
 
-    .search-bar button:active {
+    .searchBar button:active {
         background: var(--Verde-Claro, #AAF766);
     }
 
