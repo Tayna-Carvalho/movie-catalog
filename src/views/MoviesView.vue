@@ -1,11 +1,15 @@
 <template>
-  <h1>Filmes</h1>
+  <MovieDetailsView></MovieDetailsView>
 </template>
   
 <script>
 
+  import MovieDetailsView from './MovieDetailsView.vue';
+
   export default {
-    name: 'movies-view'
+    name: 'movies-view',
+
+    components: {MovieDetailsView}
   }
 
 </script>
