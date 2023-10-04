@@ -23,11 +23,7 @@
   export default {
     name: 'home-view',
 
-    components: {Hero, Sort, Movie},
-
-    computed: {
-      movies() {return this.$store.state.movies}
-    }
+    components: {Hero, Sort, Movie}
   }
 
 </script>
