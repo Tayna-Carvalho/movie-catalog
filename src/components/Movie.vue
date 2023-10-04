@@ -1,24 +1,44 @@
 <template>
 
-    <div class="movie-div"></div>
+    <div class="movieList">
+
+        <div class="movie" v-for="(movie,index) in this.movies" :key="index">
+            <img :src="movie.poster_path" :alt="movie.title">
+        </div>
+
+    </div>
 
 </template>
 
 <script>
 
     export default {
-        name: 'movie-component'
+        name: 'movie-component',
+
+        computed: {
+            movies() {return this.$store.state.movies}
+        }
     }
 
 </script>
 
 <style>
 
-    .movie-div {
+    .movieList {
         width: 1338px;
         display: flex;
         flex-wrap: wrap;
-        background-color: blueviolet;
+        gap: 32px;
+    }
+
+    .movieList .movie {
+        border-radius: 8px;
+        box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.15);
+        background-color: blue;
+    }
+
+    .movieList .movie:hover {
+        border: 3px solid var(--Roxo-Claro, #AC4DFF);
     }
 
 </style>
