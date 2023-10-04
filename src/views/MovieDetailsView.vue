@@ -1,16 +1,3 @@
-<script>
-
-    import Header from '../components/Header.vue';
-    import Footer from '../components/Footer.vue';
-
-    export default {
-        name: 'movie-details-view',
-
-        components: {Header, Footer}
-    }
-
-</script>
-
 <template>
 
     <Header></Header>
@@ -48,6 +35,25 @@
     <Footer></Footer>
 
 </template>
+
+<script>
+
+    import Header from '../components/Header.vue';
+    import Footer from '../components/Footer.vue';
+
+    export default {
+        name: 'movie-details-view',
+
+        components: {Header, Footer},
+
+        data() {
+            return {
+                movie: undefined
+            }
+        }
+    } 
+
+</script>
 
 <style>
 

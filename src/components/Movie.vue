@@ -2,11 +2,17 @@
 
     <div class="movieList">
 
-        <div class="movie" v-for="(movie,index) in this.movies" :key="index">
-            <img :src="movie.poster_path" :alt="movie.title">
-        </div>
+        <router-link 
+        :to="{ name: 'detalhes', params: { movie: movie } }"
+        class="movie" 
+        v-for="(movie,index) in this.movies" :key="index">
 
+            <img :src="movie.poster_path" :alt="movie.title">
+
+        </router-link>
     </div>
+
+    <router-view/>
 
 </template>
 
@@ -34,7 +40,7 @@
         border-radius: 8px;
         box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.15);
         
-        background-color: #AC4DFF;
+        background-color: blue;
         width: 414px;
         height: 241.88px;
         flex-shrink: 0;
