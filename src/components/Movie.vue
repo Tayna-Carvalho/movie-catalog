@@ -21,9 +21,7 @@
     export default {
         name: 'movie-component',
 
-        computed: {
-            movies() {return this.$store.state.movies}
-        }
+        props: ['movies']
     }
 
 </script>

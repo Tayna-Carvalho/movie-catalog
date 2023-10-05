@@ -25,6 +25,10 @@
         background: var(--Branco-transparente, rgba(255, 255, 255, 0.30)); 
     }
 
+::-webkit-input-placeholder {
+    color: var(--cinza-claro-2, #A5A5A5);
+}
+
     .searchBar input{
         width: 605px; 
         height: 100%;
