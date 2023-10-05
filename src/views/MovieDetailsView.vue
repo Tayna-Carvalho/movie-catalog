@@ -48,7 +48,7 @@
 
         data() {
             return {
-                movie: undefined
+                movieID: this.$route.params.id
             }
         }
     } 
