@@ -17,7 +17,9 @@
     components: {Header, Footer},
 
     created() {
+      this.$store.dispatch('loadTrending');
       this.$store.dispatch('loadMovies'); 
+      this.$store.dispatch('loadSeries');  
 
       // TESTE DE APIS 
 

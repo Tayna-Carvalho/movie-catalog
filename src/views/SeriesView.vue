@@ -1,31 +1,34 @@
 <template>
 
-  <div class="container">
+  <section class="series container">
+
     <h3 class="filterDescription">Séries</h3>
 
     <div class="content">
+
       <div class="filtersAndSort">
         <Sort></Sort>
         <Filter></Filter>
       </div>
       
-      <Movie :movies="series"></Movie>
+      <Gallery :itens="series"></Gallery>
+
     </div>
 
-  </div>
+  </section>
   
 </template>
 
 <script>
 
   import Sort from '@/components/Sort.vue';
-  import Movie from '@/components/Movie.vue';
+  import Gallery from '@/components/Gallery.vue';
   import Filter from '@/components/Filter.vue';
 
   export default {
     name: 'series-view',
 
-    components: {Sort, Movie, Filter},
+    components: {Sort, Gallery, Filter},
 
     computed: {
       series() {return this.$store.state.series}

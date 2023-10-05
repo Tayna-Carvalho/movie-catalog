@@ -1,34 +1,34 @@
 <template>
 
-  <Hero></Hero>
+  <section class="home container">
 
-  <div class="container">
     <h3 class="filterDescription">Em alta</h3>
 
     <div class="content">
+
       <div class="filtersAndSort">
         <Sort></Sort>
         <Filter></Filter>
       </div>
       
-      <Movie :movies="trending"></Movie>
+      <Gallery :itens="trending"></Gallery>
+
     </div>
 
-  </div>
+  </section>
   
 </template>
 
 <script>
 
-  import Hero from '@/components/Hero.vue';
   import Sort from '@/components/Sort.vue';
-  import Movie from '@/components/Movie.vue';
+  import Gallery from '@/components/Gallery.vue';
   import Filter from '@/components/Filter.vue';
 
   export default {
     name: 'home-view',
 
-    components: {Hero, Sort, Movie, Filter},
+    components: {Sort, Gallery, Filter},
 
     computed: {
       trending() {return this.$store.state.trending}

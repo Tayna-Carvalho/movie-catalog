@@ -1,6 +1,6 @@
 <template>
      
-    <section class="movieDescription">
+    <section class="details">
 
         <div class="leftColumn">
 
@@ -35,11 +35,11 @@
 <script>
 
     export default {
-        name: 'movie-details-view',
+        name: 'details-view',
 
         data() {
             return {
-                movieID: this.$route.params.id
+                id: this.$route.params.id
             }
         }
     } 
@@ -48,7 +48,7 @@
 
 <style>
 
-    .movieDescription {
+    .details {
         display: inline-flex;
         align-items: flex-end;
         gap: 27px;
@@ -59,7 +59,7 @@
         height: 960px;
     }
 
-    .movieDescription .leftColumn {
+    .details .leftColumn {
         display: flex;
         flex-direction: column;
         gap: 16px;
@@ -67,7 +67,7 @@
         width: 1338px;
     }
 
-    .movieDescription .leftColumn .upperDetails {
+    .details .leftColumn .upperDetails {
         display: flex;
         align-items: center;
         gap: 8px;
@@ -75,7 +75,7 @@
         color: var(--cinza-claro-2, #A5A5A5);
     }
 
-    .movieDescription .leftColumn .upperDetails .dot {
+    .details .leftColumn .upperDetails .dot {
         width: 8px;
         height: 8px;
         border-radius: 8px;
@@ -83,17 +83,17 @@
         background-color: var(--cinza-claro-2, #A5A5A5);
     }
 
-    .movieDescription .leftColumn .rater {
+    .details .leftColumn .rater {
         color: var(--Verde-Claro, #AAF766);
     }
 
-    .movieDescription .rightColumn {
+    .details .rightColumn {
         display: flex;
         flex-direction: column;
         gap: 16px;
     }
 
-    .movieDescription .rightColumn .ageGroup {
+    .details .rightColumn .ageGroup {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -105,7 +105,7 @@
         background: var(--Laranja-Claro, #FF6A00);
     }
 
-    .movieDescription .rightColumn .title {
+    .description .rightColumn .title {
         color: var(--cinza-claro-2, #A5A5A5);
     }
 

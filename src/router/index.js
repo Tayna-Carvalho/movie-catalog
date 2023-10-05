@@ -30,7 +30,7 @@ const routes = [
   {
     path: '/detalhes/:id',
     name: 'detalhes',
-    component: () => import( '../views/MovieDetailsView.vue')
+    component: () => import( '../views/DetailsView.vue')
   }
 ]
 
