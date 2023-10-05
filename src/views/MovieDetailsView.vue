@@ -32,6 +32,8 @@
 
     </section>
 
+    <h1>{{ movieID }}</h1>
+
     <Footer></Footer>
 
 </template>
@@ -48,7 +50,7 @@
 
         data() {
             return {
-                movieID: this.$route.params.id
+                movieID: this.$route.params.movie
             }
         }
     } 

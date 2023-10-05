@@ -3,7 +3,7 @@
     <div class="movieList">
 
         <router-link 
-        :to="{ name: 'detalhes', params: { id: 123 } }"
+        :to="{ name: 'detalhes', params: { movie: movie.id } }"
         class="movie" 
         v-for="(movie,index) in this.movies" :key="index">
 

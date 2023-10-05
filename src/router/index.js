@@ -28,7 +28,7 @@ const routes = [
     component: () => import( '../views/LoginView.vue')
   },
   {
-    path: '/detalhes/:id',
+    path: '/detalhes/:movie',
     name: 'detalhes',
     component: () => import( '../views/MovieDetailsView.vue')
   }
