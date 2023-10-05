@@ -1,6 +1,4 @@
 <template>
-
-    <Header></Header>
      
     <section class="movieDescription">
 
@@ -32,25 +30,16 @@
 
     </section>
 
-    <h1>{{ movieID }}</h1>
-
-    <Footer></Footer>
-
 </template>
 
 <script>
 
-    import Header from '../components/Header.vue';
-    import Footer from '../components/Footer.vue';
-
     export default {
         name: 'movie-details-view',
 
-        components: {Header, Footer},
-
         data() {
             return {
-                movieID: this.$route.params.movie
+                movieID: this.$route.params.id
             }
         }
     } 

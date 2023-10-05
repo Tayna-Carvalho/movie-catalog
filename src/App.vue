@@ -9,6 +9,7 @@
 
   import Header from '@/components/Header.vue'
   import Footer from '@/components/Footer.vue'
+  import axios from 'axios'
 
   export default {
     name: 'app',
@@ -16,8 +17,66 @@
     components: {Header, Footer},
 
     created() {
-        this.$store.dispatch('loadMovies'); 
-    }
+      this.$store.dispatch('loadMovies'); 
+
+      // TESTE DE APIS 
+
+      const id= 820525;
+
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
+        }
+      };
+      
+      //filme e series em alta
+      axios
+        .get('https://api.themoviedb.org/3/trending/all/week', options)
+        .then((response) => {
+          console.log('filme e series em alta')
+          console.log(response.data.results);
+        })
+        .catch(err => console.error(err));
+
+      //lista de filmes
+      axios
+        .get('https://api.themoviedb.org/3/discover/movie', options)
+        .then((response) => {
+          console.log('lista de filmes')
+          console.log(response.data.results);
+        })
+        .catch(err => console.error(err));
+
+      //lista de series
+      axios
+        .get('https://api.themoviedb.org/3/discover/tv', options)
+        .then((response) => {
+          console.log('lista de series')
+          console.log(response.data.results);
+        })
+        .catch(err => console.error(err));
+
+      //lista de generos
+      axios
+        .get('https://api.themoviedb.org/3/genre/movie/list', options)
+        .then((response) => {
+          console.log('lista de generos filme')
+          console.log(response.data.genres);
+        })
+        .catch(err => console.error(err));
+      
+      //trailer filme
+      axios
+        .get('https://api.themoviedb.org/3/movie/'+id+'/videos?language=en-US', options)
+        .then((response) => {
+          console.log('trailer filme')
+          console.log(response.data.results.find(item => item.name === "Official Trailer"));
+        })
+        .catch(err => console.error(err));
+      
+    } 
   }
 
 </script>
