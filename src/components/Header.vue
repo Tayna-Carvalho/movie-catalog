@@ -10,10 +10,41 @@
 
                 <nav>
                     <ul>
-                        <li><h3><router-link to="/" class="headerNavegation">Início</router-link></h3></li>
-                        <li><h3><router-link to="/filmes" class="headerNavegation">Filmes</router-link></h3></li>
-                        <li><h3><router-link to="/series" class="headerNavegation">Séries</router-link></h3></li>
-                        <li><h3><router-link to="/favoritos" class="headerNavegation">Favoritos</router-link></h3></li>
+                        <li><h3><router-link 
+                            to="/" 
+                            class="headerNavegation" 
+                            @click="selected = 1"
+                            :class="{routerLinkSelected : selected === 1}">
+
+                            Início
+                        </router-link></h3></li>
+
+                        <li><h3><router-link 
+                            to="/filmes" 
+                            class="headerNavegation" 
+                            @click="selected = 2"
+                            :class="{routerLinkSelected : selected === 2}">
+
+                            Filmes
+                        </router-link></h3></li>
+
+                        <li><h3><router-link 
+                            to="/series" 
+                            class="headerNavegation" 
+                            @click="selected = 3"
+                            :class="{routerLinkSelected : selected === 3}">
+
+                            Séries
+                        </router-link></h3></li>
+
+                        <li><h3><router-link 
+                            to="/favoritos" 
+                            class="headerNavegation" 
+                            @click="selected = 4"
+                            :class="{routerLinkSelected : selected === 4}">
+
+                            Favoritos
+                        </router-link></h3></li>
                     </ul>
                 </nav>
 
@@ -41,7 +72,13 @@
     export default {
         name: 'header-component',
 
-        components: {MinimalistSearchBar}
+        components: {MinimalistSearchBar},
+
+        data() {
+            return {
+                selected: 1
+            }
+        }
     }
 
 </script>
@@ -93,6 +130,14 @@
         padding: 0;
 
         list-style-type: none;
+    }
+
+    .routerLinkSelected {
+        border-bottom: 4px solid var(--Roxo-Claro, #AC4DFF);
+    }
+
+    .headerNavegation {
+        padding-bottom: 16px;
     }
 
     .headerNavegation:hover {

@@ -7,10 +7,8 @@ export default createStore({
     trending: [],
     movies: [],
     series: [],
-    CurrentItem: undefined
-  },
-
-  getters: {
+    currentItem: undefined,
+    currentVideo: undefined
   },
   
   mutations: {
@@ -27,8 +25,12 @@ export default createStore({
       state.series = series;
     },
 
+    loadCurrentVideo(state, movieKey) {
+      state.currentVideo = movieKey;
+    },
+
     setCurrentItem(state, item) {
-      state.CurrentItem = item
+      state.currentItem = item
     }
 
   },
@@ -92,12 +94,54 @@ export default createStore({
 
     },
 
+    loadCurrentMovie({commit}, id){
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
+        }
+      };
+
+      axios
+        .get('https://api.themoviedb.org/3/movie/'+id+'/videos?language=en-US', options)
+        .then((response) => {
+          try{
+            commit('loadCurrentVideo', response.data.results.find(item => item.name === "Official Trailer").key);
+          }
+          catch{
+            commit('loadCurrentVideo', response.data.results[0].key);
+          }
+        })
+        .catch(err => console.error(err));
+    },
+
+    loadCurrentSerie({commit}, id){
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
+        }
+      };
+
+      axios
+        .get('https://api.themoviedb.org/3/tv/'+id+'/season/1/episode/1/videos?language=en-US', options)
+        .then((response) => {
+          try {
+            commit('loadCurrentVideo', response.data.results[0]);
+          }
+          catch {
+            commit('loadCurrentVideo','false')
+          }
+          
+        })
+        .catch(err => console.error(err));
+    },
+
     setCurrentItem({commit}, item){
       commit('setCurrentItem', item);
     }
 
-  },
-
-  modules: {
   }
 })

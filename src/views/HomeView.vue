@@ -4,7 +4,7 @@
 
   <section class="home container">
 
-    <h3 class="filterDescription">Em alta</h3>
+    <h3 class="pageDescription">Em alta</h3>
 
     <div class="content">
 
@@ -42,7 +42,7 @@
 
 <style>
 
-  .filterDescription {
+  .pageDescription {
     color: var(--Roxo-Escuro, #550899);
     margin-top: 80px;
     margin-bottom: 16px;

@@ -23,7 +23,7 @@
 
       // TESTE DE APIS 
 
-      const id= 820525;
+      const id= 23915;
 
       const options = {
         method: 'GET',
@@ -74,7 +74,16 @@
         .get('https://api.themoviedb.org/3/movie/'+id+'/videos?language=en-US', options)
         .then((response) => {
           console.log('trailer filme')
-          console.log(response.data.results.find(item => item.name === "Official Trailer"));
+          console.log(response.data.results[0].key);
+        })
+        .catch(err => console.error(err));
+
+        //trailer serie
+      axios
+        .get('https://api.themoviedb.org/3/tv/'+id+'/season/1/episode/1/videos?language=en-US', options)
+        .then((response) => {
+          console.log('trailer série')
+          console.log(response.data.results);
         })
         .catch(err => console.error(err));
       

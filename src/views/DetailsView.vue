@@ -1,12 +1,13 @@
 <template>
-    <section class="details" v-if="item === undefined">
-    </section>
+    <section class="details" v-if="item === undefined"></section>
+    
     <section class="details" v-else>
 
         <div class="leftColumn">
 
             <div class="upperDetails">
-                <h3>2023</h3>
+                <h3 v-if="item.release_date === undefined">{{item.first_air_date.substring(0, 4)}}</h3>
+                <h3 v-else>{{item.release_date.substring(0, 4)}}</h3>
                 <div class="dot"></div>
                 <h3>2h 56min</h3>
                 <div class="dot"></div>
@@ -15,7 +16,9 @@
 
             <h1 v-if="item.title === undefined">{{item.name}}</h1>
             <h1 v-else>{{item.title}}</h1>
+
             <h2 class="rater">{{(item.vote_average * 10).toFixed(0)}}% relevante</h2>
+
             <h3>{{item.overview}}</h3>
 
         </div>
@@ -32,6 +35,19 @@
 
     </section>
 
+    <div v-if="video === 'false'">
+        <img :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path" :alt="item.title">
+    </div>
+    <iframe
+    v-else
+    width="1920" 
+    height="1080" 
+    :src="'https://www.youtube.com/embed/' + video + '?si=PMSmpq_Om5iAGEvu&amp;autoplay=1&controls=0'" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen></iframe>
+
 </template>
 
 <script>
@@ -40,7 +56,8 @@
         name: 'details-view',
 
         computed: {
-            item() {return this.$store.state.CurrentItem}
+            item() {return this.$store.state.currentItem},
+            video() {return this.$store.state.currentVideo}
         }
     } 
 
@@ -56,7 +73,11 @@
         padding: 0 64px 32px 64px;
         background: linear-gradient(180deg, rgba(27, 27, 27, 0.00) 0%, #1B1B1B 100%);
 
-        height: 960px;
+        height: 1080px;
+
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 
     .details .leftColumn {
@@ -105,8 +126,9 @@
         background: var(--Laranja-Claro, #FF6A00);
     }
 
-    .description .rightColumn .title {
+    .details .rightColumn .title {
         color: var(--cinza-claro-2, #A5A5A5);
     }
 
 </style>
+

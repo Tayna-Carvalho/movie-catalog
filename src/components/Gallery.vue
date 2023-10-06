@@ -6,7 +6,7 @@
             to="/detalhes"
             class="item" 
             v-for="(item,index) in this.itens" :key="index"
-            @click="setCurrentItem(item)" >
+            @click="setStoreElements(item)" >
 
             <img :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path" :alt="item.title">
 
@@ -26,8 +26,9 @@
         props: ['itens'],
 
         methods: {
-            setCurrentItem (item) {
+            setStoreElements (item) {
                 this.$store.dispatch('setCurrentItem', item);
+                this.$store.dispatch('loadCurrentMovie', item.id);
             }
         }
     }

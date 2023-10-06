@@ -2,7 +2,7 @@
 
   <section class="movies container">
 
-    <h3 class="filterDescription">Filmes</h3>
+    <h3 class="pageDescription">Filmes</h3>
 
     <div class="content">
 
@@ -39,7 +39,7 @@
 
 <style>
 
-  .filterDescription {
+  .pageDescription {
     color: var(--Roxo-Escuro, #550899);
     margin-top: 80px;
     margin-bottom: 16px;
