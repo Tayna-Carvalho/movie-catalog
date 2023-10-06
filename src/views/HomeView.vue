@@ -1,5 +1,7 @@
 <template>
 
+  <Hero></Hero>
+
   <section class="home container">
 
     <h3 class="filterDescription">Em alta</h3>
@@ -21,6 +23,7 @@
 
 <script>
 
+  import Hero from '@/components/Hero.vue';
   import Sort from '@/components/Sort.vue';
   import Gallery from '@/components/Gallery.vue';
   import Filter from '@/components/Filter.vue';
@@ -28,7 +31,7 @@
   export default {
     name: 'home-view',
 
-    components: {Sort, Gallery, Filter},
+    components: {Hero, Sort, Gallery, Filter},
 
     computed: {
       trending() {return this.$store.state.trending}

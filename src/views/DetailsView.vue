@@ -1,6 +1,7 @@
 <template>
-     
-    <section class="details">
+    <section class="details" v-if="item === undefined">
+    </section>
+    <section class="details" v-else>
 
         <div class="leftColumn">
 
@@ -12,9 +13,10 @@
                 <h3>Brasileiro</h3>
             </div>
 
-            <h1>Nome do filme</h1>
-            <h2 class="rater">98% relevante</h2>
-            <h3>Lorem ipsum dolor sit amet consectetur. Tellus quis non et nibh hendrerit. Convallis ac cras aliquet dui feugiat vel. Velit ipsum arcu dignissim arcu. Mattis odio nisi eget justo tellus ac pellentesque. Hendrerit augue maecenas vitae diam sed congue fames in. Ipsum aliquam pretium tristique arcu interdum pharetra.</h3>
+            <h1 v-if="item.title === undefined">{{item.name}}</h1>
+            <h1 v-else>{{item.title}}</h1>
+            <h2 class="rater">{{(item.vote_average * 10).toFixed(0)}}% relevante</h2>
+            <h3>{{item.overview}}</h3>
 
         </div>
 
@@ -37,10 +39,8 @@
     export default {
         name: 'details-view',
 
-        data() {
-            return {
-                id: this.$route.params.id
-            }
+        computed: {
+            item() {return this.$store.state.CurrentItem}
         }
     } 
 

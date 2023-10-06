@@ -3,9 +3,10 @@
     <section class="gallery">
 
         <router-link 
-            :to="{ name: 'detalhes', params: { id: item.id } }"
+            to="/detalhes"
             class="item" 
-            v-for="(item,index) in this.itens" :key="index">
+            v-for="(item,index) in this.itens" :key="index"
+            @click="setCurrentItem(item)" >
 
             <img :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path" :alt="item.title">
 
@@ -22,7 +23,13 @@
     export default {
         name: 'gallery-component',
 
-        props: ['itens']
+        props: ['itens'],
+
+        methods: {
+            setCurrentItem (item) {
+                this.$store.dispatch('setCurrentItem', item);
+            }
+        }
     }
 
 </script>

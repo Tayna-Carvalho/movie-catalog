@@ -6,7 +6,8 @@ export default createStore({
   state: {
     trending: [],
     movies: [],
-    series: []
+    series: [],
+    CurrentItem: undefined
   },
 
   getters: {
@@ -24,6 +25,10 @@ export default createStore({
 
     loadSeries(state, series){
       state.series = series;
+    },
+
+    setCurrentItem(state, item) {
+      state.CurrentItem = item
     }
 
   },
@@ -85,6 +90,10 @@ export default createStore({
         })
         .catch(err => console.error(err));
 
+    },
+
+    setCurrentItem({commit}, item){
+      commit('setCurrentItem', item);
     }
 
   },
