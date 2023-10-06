@@ -1,10 +1,16 @@
 <template>
 
     <div class="minimalistSearchBar">
-        <a href="#" class="searchButton">
+
+        <router-link 
+            :to="query === '' ? '/' : '/buscar'" 
+            class="searchButton"
+            @click="searchByQuery()">
+
             <img src="../assets/search-icon.svg" alt="loupe">
-        </a>
-        <input type="text" class="searchText">
+        </router-link>
+
+        <input type="text" class="searchText" v-model="this.query">
     </div>
 
 </template>
@@ -12,7 +18,21 @@
 <script>
 
     export default {
-        name: 'minimalist-search-bar-component'
+        name: 'minimalist-search-bar-component',
+
+        data () {
+            return {
+                query: ''
+            }
+        },
+
+        methods: {
+            searchByQuery () {
+                if (this.query != '') {
+                    this.$store.dispatch('searchByQuery', this.query);
+                }
+            }
+        }
     }
 
 </script>

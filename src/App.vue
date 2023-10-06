@@ -24,6 +24,7 @@
       // TESTE DE APIS 
 
       const id= 23915;
+      const query='batata';
 
       const options = {
         method: 'GET',
@@ -86,6 +87,15 @@
           console.log(response.data.results);
         })
         .catch(err => console.error(err));
+
+        //busca
+        axios
+        .get('https://api.themoviedb.org/3/search/multi?query='+query+'&include_adult=true&language=en-US&page=1', options)
+        .then((response) => {
+          console.log('busca')
+          console.log(response.data.results);
+        })
+        .catch(err => console.error(err));
       
     } 
   }
@@ -96,7 +106,6 @@
 
   body {
     margin: 0;
-    min-height: 3000px;
 
     font-family: 'Roboto', sans-serif;
     font-weight: 400;

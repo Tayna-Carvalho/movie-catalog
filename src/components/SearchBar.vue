@@ -1,8 +1,17 @@
 <template>
 
     <form class="searchBar">
-        <input type="text" placeholder="Pesquisar">
-        <button>buscar</button>
+        <input type="text" placeholder="Pesquisar" v-model="this.query">
+        
+
+        <router-link 
+            :to="query === '' ? '/' : '/buscar'"
+            @click="searchByQuery()">
+
+            <button :class="{buttonDisabled : query === ''}">buscar</button>
+        </router-link>
+
+        
     </form>
 
 </template>
@@ -10,7 +19,21 @@
 <script>
 
     export default {
-        name: 'search-bar-component'
+        name: 'search-bar-component',
+
+        data () {
+            return {
+                query: ''
+            }
+        },
+
+        methods: {
+            searchByQuery () {
+                if (this.query != '') {
+                    this.$store.dispatch('searchByQuery', this.query);
+                }
+            }
+        }
     }
 
 </script>
@@ -50,6 +73,10 @@
         background: var(--Roxo-Claro, #AC4DFF);
         border: none;
         padding: 0;
+    }
+
+    .searchBar .buttonDisabled:hover {
+        background: #D9AEFF;
     }
 
     .searchBar button:hover {

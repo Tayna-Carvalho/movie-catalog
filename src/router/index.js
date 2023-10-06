@@ -31,6 +31,12 @@ const routes = [
     path: '/detalhes',
     name: 'detalhes',
     component: () => import( '../views/DetailsView.vue')
+  },
+
+  {
+    path: '/buscar',
+    name: 'buscar',
+    component: () => import( '../views/SearchView.vue')
   }
 ]
 
