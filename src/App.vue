@@ -19,12 +19,10 @@
     created() {
       this.$store.dispatch('loadTrending');
       this.$store.dispatch('loadMovies'); 
-      this.$store.dispatch('loadSeries');  
+      this.$store.dispatch('loadSeries'); 
+      this.$store.dispatch('loadGenre');  
 
       // TESTE DE APIS 
-
-      const id= 23915;
-      const query='batata';
 
       const options = {
         method: 'GET',
@@ -61,42 +59,24 @@
         })
         .catch(err => console.error(err));
 
-      //lista de generos
+      //lista de generos serie
       axios
-        .get('https://api.themoviedb.org/3/genre/movie/list', options)
+        .get('https://api.themoviedb.org/3/genre/tv/list?language=en', options)
+        .then((response) => {
+          console.log('lista de generos series')
+          console.log(response.data.genres);
+        })
+        .catch(err => console.error(err));
+  
+        //lista de generos filme
+        axios
+        .get('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
         .then((response) => {
           console.log('lista de generos filme')
           console.log(response.data.genres);
         })
         .catch(err => console.error(err));
-      
-      //trailer filme
-      axios
-        .get('https://api.themoviedb.org/3/movie/'+id+'/videos?language=en-US', options)
-        .then((response) => {
-          console.log('trailer filme')
-          console.log(response.data.results[0].key);
-        })
-        .catch(err => console.error(err));
-
-        //trailer serie
-      axios
-        .get('https://api.themoviedb.org/3/tv/'+id+'/season/1/episode/1/videos?language=en-US', options)
-        .then((response) => {
-          console.log('trailer série')
-          console.log(response.data.results);
-        })
-        .catch(err => console.error(err));
-
-        //busca
-        axios
-        .get('https://api.themoviedb.org/3/search/multi?query='+query+'&include_adult=true&language=en-US&page=1', options)
-        .then((response) => {
-          console.log('busca')
-          console.log(response.data.results);
-        })
-        .catch(err => console.error(err));
-      
+        
     } 
   }
 

@@ -9,7 +9,8 @@ export default createStore({
     series: [],
     currentItem: undefined,
     currentVideo: undefined,
-    search: []
+    search: [],
+    genre: []
   },
   
   mutations: {
@@ -36,8 +37,11 @@ export default createStore({
 
     searchByQuery(state, result) {
       state.search = result
-    }
+    },
 
+    loadGenre(state, genre){
+      state.genre = genre
+    }
   },
 
   actions: {
@@ -161,6 +165,23 @@ export default createStore({
         .get('https://api.themoviedb.org/3/search/multi?query='+query+'&include_adult=true&language=en-US&page=1', options)
         .then((response) => {
           commit('searchByQuery', response.data.results);
+        })
+        .catch(err => console.error(err));
+    },
+
+    loadGenre ({commit}){
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
+        }
+      };
+
+      axios
+        .get('https://api.themoviedb.org/3/genre/tv/list?language=en', options)
+        .then((response) => {
+          commit('loadGenre', response.data.genres);
         })
         .catch(err => console.error(err));
     }
