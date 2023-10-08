@@ -16,7 +16,11 @@
                 <h4 class="title">Gêneros</h4>
                 
                 <div class="genres">                
-                    <div class="genre" v-for="(genre,index) in this.genres" :key="index">
+                    <div class="genre" 
+                        v-for="(genre,index) in this.genres" :key="index"
+                        @click="setGenreState(genre)"
+                        :class="{genreSelected : selectedFilters.includes(genre.id)}">
+                        
                         <h4>{{ genre.name }}</h4>
                     </div>
                 </div>
@@ -39,6 +43,17 @@
             return {
                 selected: false,
                 selectedFilters: []
+            }
+        },
+
+        methods: {
+            setGenreState(genre) {
+                if (this.selectedFilters.includes(genre.id)){
+                    this.selectedFilters.pop(genre.id)
+                }
+                else {
+                    this.selectedFilters.push(genre.id)
+                }
             }
         },
 
@@ -116,6 +131,10 @@
 
     .sort #dropdown .content .genres .genre:hover {
         background: var(--Cinza-escuro, #343434);
+    }
+
+    .sort #dropdown .content .genres .genreSelected {
+        background: var(--Roxo-Claro, #AC4DFF);
     }
 
 </style>
