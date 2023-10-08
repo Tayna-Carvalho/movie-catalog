@@ -78,6 +78,11 @@ export default createStore({
       axios
         .get('https://api.themoviedb.org/3/discover/movie', options)
         .then((response) => {
+
+          response.data.results.forEach(element => {
+            element.media_type = 'movie'
+          });
+
           commit('loadMovies', response.data.results);
         })
         .catch(err => console.error(err));
@@ -97,6 +102,12 @@ export default createStore({
       axios
         .get('https://api.themoviedb.org/3/discover/tv', options)
         .then((response) => {
+
+          response.data.results.forEach(element => {
+            element.media_type = 'tv'
+          });
+
+          console.log(response.data.results)
           commit('loadSeries', response.data.results);
         })
         .catch(err => console.error(err));
