@@ -107,7 +107,6 @@ export default createStore({
             element.media_type = 'tv'
           });
 
-          console.log(response.data.results)
           commit('loadSeries', response.data.results);
         })
         .catch(err => console.error(err));
@@ -189,12 +188,46 @@ export default createStore({
         }
       };
 
+      var genreList = [];
+
       axios
         .get('https://api.themoviedb.org/3/genre/tv/list?language=en', options)
+        //fill genre list with series genres
         .then((response) => {
-          commit('loadGenre', response.data.genres);
+
+          response.data.genres.forEach(element => {
+            genreList.push(element);
+          });
+          
         })
         .catch(err => console.error(err));
+
+      axios
+        .get('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
+        //fill genre list with movies genres
+        .then((response) => {
+
+          response.data.genres.forEach(element => {
+
+            var finded;
+
+            genreList.forEach(item => {
+              if (item.id === element.id){
+                finded = true;
+              }
+            });
+
+            if (!finded) {
+              genreList.push(element);
+            }
+
+          });
+          
+          console.log(genreList);
+        })
+        .catch(err => console.error(err));
+
+        commit('loadGenre', genreList);
     }
   }
 })
