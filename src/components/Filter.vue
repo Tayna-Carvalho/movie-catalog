@@ -18,8 +18,8 @@
                 <div class="genres">                
                     <div class="genre" 
                         v-for="(genre,index) in this.genres" :key="index"
-                        @click="setGenreState(genre)"
-                        :class="{genreSelected : selectedFilters.includes(genre.id)}">
+                        @click="setGenre(genre)"
+                        :class="{genreSelected : selectedGenres.includes(genre.id)}">
                         
                         <h4>{{ genre.name }}</h4>
                     </div>
@@ -41,24 +41,19 @@
 
         data () {
             return {
-                selected: false,
-                selectedFilters: []
+                selected: false
             }
         },
 
         methods: {
-            setGenreState(genre) {
-                if (this.selectedFilters.includes(genre.id)){
-                    this.selectedFilters.pop(genre.id)
-                }
-                else {
-                    this.selectedFilters.push(genre.id)
-                }
+            setGenre(genre) {
+                this.$store.dispatch('setGenre', genre);
             }
         },
 
         computed: {
-            genres() {return this.$store.state.genre}
+            genres() {return this.$store.state.genre},
+            selectedGenres() {return this.$store.state.selectedGenres}
         }
     }
 

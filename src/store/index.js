@@ -10,7 +10,8 @@ export default createStore({
     currentItem: undefined,
     currentVideo: undefined,
     search: [],
-    genre: []
+    genre: [],
+    selectedGenres: []
   },
   
   mutations: {
@@ -31,6 +32,10 @@ export default createStore({
       state.currentVideo = movieKey;
     },
 
+    loadGenre(state, genre){
+      state.genre = genre
+    },
+
     setCurrentItem(state, item) {
       state.currentItem = item
     },
@@ -39,8 +44,15 @@ export default createStore({
       state.search = result
     },
 
-    loadGenre(state, genre){
-      state.genre = genre
+    setGenre(state, genre) {
+      if (state.selectedGenres.includes(genre.id)){
+        state.selectedGenres.pop(genre.id)
+      }
+      else {
+        state.selectedGenres.push(genre.id)
+      }
+
+      console.log(state.selectedGenres);
     }
   },
 
@@ -222,12 +234,14 @@ export default createStore({
             }
 
           });
-          
-          console.log(genreList);
         })
         .catch(err => console.error(err));
 
         commit('loadGenre', genreList);
+    },
+
+    setGenre({commit}, genre) {
+      commit('setGenre', genre);
     }
   }
 })
