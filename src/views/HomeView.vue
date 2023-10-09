@@ -34,7 +34,7 @@
     components: {Hero, Sort, Gallery, Filter},
 
     computed: {
-      trending() {return this.$store.state.trending}
+      trending() {return this.$store.state.filteredTrending}
     }
   }
 

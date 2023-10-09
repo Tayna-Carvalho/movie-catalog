@@ -11,7 +11,10 @@ export default createStore({
     currentVideo: undefined,
     search: [],
     genre: [],
-    selectedGenres: []
+    selectedGenres: [],
+    filteredTrending: [],
+    filteredMovies: [],
+    filteredSeries: [],
   },
   
   mutations: {
@@ -28,14 +31,14 @@ export default createStore({
       state.series = series;
     },
 
-    loadCurrentVideo(state, movieKey) {
-      state.currentVideo = movieKey;
-    },
-
     loadGenre(state, genre){
       state.genre = genre
     },
-
+    //----------------------------------
+    loadCurrentVideo(state, movieKey) {
+      state.currentVideo = movieKey;
+    },
+    
     setCurrentItem(state, item) {
       state.currentItem = item
     },
@@ -51,9 +54,54 @@ export default createStore({
       else {
         state.selectedGenres.push(genre.id)
       }
+    },
 
-      console.log(state.selectedGenres);
-    }
+    
+    setFiteredLists(state) {
+
+      function findItem (item) {
+        item.genre_ids.foreach(id => {
+          if (state.selectedGenres.includes(id) != undefined){
+            return true
+          }
+        })
+      }
+
+      let vetor = state.trending.filter(item => findItem(item));
+
+      
+      
+      console.log(vetor);
+/*
+      state.trending.forEach(item => {
+        item.genre_ids.forEach(id => {
+            if (state.selectedGenres.find(genre => id === genre) != undefined) {
+              state.filteredTrending.push(item)
+            }
+        });
+      });
+
+      state.movies.forEach(item => {
+        item.genre_ids.forEach(id => {
+          state.selectedGenres.forEach(genre => {
+            if (id === genre) {
+              state.filteredMovies.push(item)
+            }
+          });
+        });
+      });
+
+      state.series.forEach(item => {
+        item.genre_ids.forEach(id => {
+          state.selectedGenres.forEach(genre => {
+            if (id === genre) {
+              state.filteredSeries.push(item)
+            }
+          });
+        });
+      });*/
+
+    }  
   },
 
   actions: {
@@ -124,7 +172,7 @@ export default createStore({
         .catch(err => console.error(err));
 
     },
-
+    //----------------------------------
     loadCurrentMovie({commit}, id){
       const options = {
         method: 'GET',
@@ -173,7 +221,7 @@ export default createStore({
     setCurrentItem({commit}, item){
       commit('setCurrentItem', item);
     },
-
+    //----------------------------------
     searchByQuery({commit}, query) {
       const options = {
         method: 'GET',
@@ -190,7 +238,7 @@ export default createStore({
         })
         .catch(err => console.error(err));
     },
-
+    //----------------------------------
     loadGenre ({commit}){
       const options = {
         method: 'GET',
@@ -242,6 +290,10 @@ export default createStore({
 
     setGenre({commit}, genre) {
       commit('setGenre', genre);
+    },
+
+    setFiteredLists({commit}) {
+      commit('setFiteredLists')
     }
   }
 })

@@ -48,6 +48,7 @@
         methods: {
             setGenre(genre) {
                 this.$store.dispatch('setGenre', genre);
+                this.$store.dispatch('setFiteredLists');
             }
         },
 

@@ -31,7 +31,7 @@
     components: {Sort, Gallery, Filter},
 
     computed: {
-      series() {return this.$store.state.series}
+      series() {return this.$store.state.filteredSeries}
     }
   }
 

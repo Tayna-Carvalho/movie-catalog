@@ -31,7 +31,7 @@
     components: {Sort, Gallery, Filter},
 
     computed: {
-      movies() {return this.$store.state.movies}
+      movies() {return this.$store.state.filteredMovies}
     }
   }
 
