@@ -2,15 +2,19 @@
 
     <section class="gallery">
 
-        <router-link 
+        <div v-for="(item,index) in this.itens" :key="index">
+
+            <router-link 
             to="/detalhes"
             class="item" 
-            v-for="(item,index) in this.itens" :key="index"
-            @click="setStoreElements(item)" >
+            @click="setStoreElements(item)" 
+            v-if="atGenreList(item)">
 
             <img :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path" :alt="item.title">
 
         </router-link>
+
+        </div>
 
     </section>
 
@@ -29,6 +33,21 @@
             setStoreElements (item) {
                 this.$store.dispatch('setCurrentItem', item);
                 this.$store.dispatch('loadCurrentMovie', item.id);
+            },
+
+            atGenreList (item) {
+                //pass trought the list of genres searching the selected IDs
+                item.genre_ids.forEach(id => {
+                    this.selectedGenres.forEach(genre => {
+                       if (id === genre.id)
+                        return true 
+                    });
+                });
+                return false;
+            },
+
+            computed: {
+                selectedGenres() {return this.$store.selectedGenres} 
             }
         }
     }
