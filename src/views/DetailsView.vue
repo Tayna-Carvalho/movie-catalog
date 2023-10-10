@@ -1,57 +1,64 @@
 <template>
+
     <section class="details" v-if="item === undefined"></section>
-    
     <section class="details" v-else>
 
-        <div class="leftColumn">
+        <div class="mainDetails">
 
-            <div class="upperDetails">
+            <div class="leftColumn">
 
-                <h3 v-if="item.media_type === 'tv'">
-                    {{item.first_air_date.substring(0, 4)}}
-                </h3>
-                <h3 v-else>
-                    {{item.release_date.substring(0, 4)}}
-                </h3>
-                <div class="dot"></div>
-                <h3>2h 56min</h3>
-                <div class="dot"></div>
-                <h3>Brasileiro</h3>
+                <div class="upperDetails">
+
+                    <h3 v-if="item.media_type === 'tv'">
+                        {{item.first_air_date.substring(0, 4)}}
+                    </h3>
+                    <h3 v-else>
+                        {{item.release_date.substring(0, 4)}}
+                    </h3>
+                    <div class="dot"></div>
+                    <h3>2h 56min</h3>
+                    <div class="dot"></div>
+                    <h3>Brasileiro</h3>
+                </div>
+
+                <h1 v-if="item.media_type === 'tv'">{{item.name}}</h1>
+                <h1 v-else>{{item.title}}</h1>
+
+                <h2 class="rater">{{(item.vote_average * 10).toFixed(0)}}% relevante</h2>
+
+                <h3>{{item.overview}}</h3>
+
             </div>
 
-            <h1 v-if="item.media_type === 'tv'">{{item.name}}</h1>
-            <h1 v-else>{{item.title}}</h1>
+            <div class="rightColumn">
 
-            <h2 class="rater">{{(item.vote_average * 10).toFixed(0)}}% relevante</h2>
+                <h2 class="ageGroup">14</h2>
 
-            <h3>{{item.overview}}</h3>
+                <h3><span class="title">Gêneros:</span> Ficção, Romance, Comédia</h3>
+                <h3><span class="title">Diretor:</span>  John Doe</h3>
+                <h3><span class="title">Ator principal:</span> Fulano de tal</h3>
+
+            </div>
 
         </div>
 
-        <div class="rightColumn">
+        <div class="background">
 
-            <h2 class="ageGroup">14</h2>
-
-            <h3><span class="title">Gêneros:</span> Ficção, Romance, Comédia</h3>
-            <h3><span class="title">Diretor:</span>  John Doe</h3>
-            <h3><span class="title">Ator principal:</span> Fulano de tal</h3>
+            <div v-if="video === undefined">
+                <img :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path" :alt="item.title">
+            </div>
+            
+            <iframe v-else 
+                :src="'https://www.youtube.com/embed/' + video + '?si=PMSmpq_Om5iAGEvu&amp;autoplay=1&controls=0'" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+            </iframe>
 
         </div>
 
     </section>
-
-    <div v-if="video === 'false'">
-        <img :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path" :alt="item.title">
-    </div>
-    <iframe
-    v-else
-    width="1920" 
-    height="1080" 
-    :src="'https://www.youtube.com/embed/' + video + '?si=PMSmpq_Om5iAGEvu&amp;autoplay=1&controls=0'" 
-    title="YouTube video player" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-    allowfullscreen></iframe>
 
 </template>
 
@@ -70,7 +77,7 @@
 
 <style>
 
-    .details {
+    .details .mainDetails {
         display: inline-flex;
         align-items: flex-end;
         gap: 27px;
@@ -85,7 +92,7 @@
         left: 0;
     }
 
-    .details .leftColumn {
+    .details .mainDetails .leftColumn {
         display: flex;
         flex-direction: column;
         gap: 16px;
@@ -93,7 +100,7 @@
         width: 1338px;
     }
 
-    .details .leftColumn .upperDetails {
+    .details .mainDetails .leftColumn .upperDetails {
         display: flex;
         align-items: center;
         gap: 8px;
@@ -101,7 +108,7 @@
         color: var(--cinza-claro-2, #A5A5A5);
     }
 
-    .details .leftColumn .upperDetails .dot {
+    .details .mainDetails .leftColumn .upperDetails .dot {
         width: 8px;
         height: 8px;
         border-radius: 8px;
@@ -109,17 +116,17 @@
         background-color: var(--cinza-claro-2, #A5A5A5);
     }
 
-    .details .leftColumn .rater {
+    .details .mainDetails .leftColumn .rater {
         color: var(--Verde-Claro, #AAF766);
     }
 
-    .details .rightColumn {
+    .mainDetails .rightColumn {
         display: flex;
         flex-direction: column;
         gap: 16px;
     }
 
-    .details .rightColumn .ageGroup {
+    .details .mainDetails .rightColumn .ageGroup {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -131,9 +138,18 @@
         background: var(--Laranja-Claro, #FF6A00);
     }
 
-    .details .rightColumn .title {
+    .details .mainDetails .rightColumn .title {
         color: var(--cinza-claro-2, #A5A5A5);
     }
 
-</style>
+    .details .background img{
+        width: 1920px;
+        height: 1080px
+    }
 
+    .details .background iframe{
+        width: 1920px;
+        height: 1080px
+    }
+
+</style>

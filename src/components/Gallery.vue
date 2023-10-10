@@ -27,8 +27,10 @@
 
         methods: {
             setStoreElements (item) {
+
+                this.$store.dispatch('setCurrentItem', undefined);
                 this.$store.dispatch('setCurrentItem', item);
-                this.$store.dispatch('loadCurrentMovie', item.id);
+                this.$store.dispatch('loadCurrentVideo', item);
             }
         }
     }

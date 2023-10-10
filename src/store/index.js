@@ -52,7 +52,7 @@ export default createStore({
 
     setGenre(state, genre) {
       if (state.selectedGenres.includes(genre.id)){
-        state.selectedGenres.pop(genre.id)
+        state.selectedGenres = state.selectedGenres.filter(item => item !== genre.id)
       }
       else {
         state.selectedGenres.push(genre.id)
@@ -145,7 +145,8 @@ export default createStore({
 
     },
     //----------------------------------
-    loadCurrentMovie({commit}, id){
+    loadCurrentVideo({commit}, item){
+
       const options = {
         method: 'GET',
         headers: {
@@ -154,40 +155,41 @@ export default createStore({
         }
       };
 
-      axios
-        .get('https://api.themoviedb.org/3/movie/'+id+'/videos?language=en-US', options)
-        .then((response) => {
+      function chooseVideo (video) {
+
+        if (video.length === 0) {
+          commit ('loadCurrentVideo', undefined)
+        } else {
           try{
-            commit('loadCurrentVideo', response.data.results.find(item => item.name === "Official Trailer").key);
+            commit('loadCurrentVideo', video.find(item => item.name === "Official Trailer").key);
           }
           catch{
-            commit('loadCurrentVideo', response.data.results[0].key);
+            commit('loadCurrentVideo', video[0].key);
           }
-        })
-        .catch(err => console.error(err));
-    },
-
-    loadCurrentSerie({commit}, id){
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
         }
-      };
+      }
 
-      axios
-        .get('https://api.themoviedb.org/3/tv/'+id+'/season/1/episode/1/videos?language=en-US', options)
+      if (item.media_type === 'movie') {
+
+        axios
+        .get('https://api.themoviedb.org/3/movie/'+item.id+'/videos?language=en-US', options)
         .then((response) => {
-          try {
-            commit('loadCurrentVideo', response.data.results[0]);
-          }
-          catch {
-            commit('loadCurrentVideo','false')
-          }
-          
+          chooseVideo(response.data.results);
         })
         .catch(err => console.error(err));
+
+      } else {
+        if(item.media_type === 'tv') {
+
+          axios
+          .get('https://api.themoviedb.org/3/tv/'+item.id+'/videos?language=en-US', options)
+          .then((response) => {
+            chooseVideo(response.data.results);
+          })
+          .catch(err => console.error(err));
+        }
+      }
+
     },
 
     setCurrentItem({commit}, item){
