@@ -21,14 +21,17 @@ export default createStore({
 
     loadTrending(state, trending){
       state.trending = trending;
+      state.filteredTrending = state.trending;
     },
 
     loadMovies(state, movies){
       state.movies = movies;
+      state.filteredMovies = state.movies;
     },
 
     loadSeries(state, series){
       state.series = series;
+      state.filteredSeries = state.series;
     },
 
     loadGenre(state, genre){
@@ -61,14 +64,15 @@ export default createStore({
       state.filteredTrending = state.trending.filter(item => {
         return item.genre_ids.some(id => state.selectedGenres.includes(id));
       });
-
+  
       state.filteredMovies = state.movies.filter(item => {
         return item.genre_ids.some(id => state.selectedGenres.includes(id));
       });
-
-      state.filteredSeries = state.filteredSeries.filter(item => {
+  
+      state.filteredSeries = state.series.filter(item => {
         return item.genre_ids.some(id => state.selectedGenres.includes(id));
       });
+      
     }  
   },
 
