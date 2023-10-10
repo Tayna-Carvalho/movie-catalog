@@ -55,52 +55,20 @@ export default createStore({
         state.selectedGenres.push(genre.id)
       }
     },
-
     
     setFiteredLists(state) {
-
-      function findItem (item) {
-        item.genre_ids.foreach(id => {
-          if (state.selectedGenres.includes(id) != undefined){
-            return true
-          }
-        })
-      }
-
-      let vetor = state.trending.filter(item => findItem(item));
-
       
-      
-      console.log(vetor);
-/*
-      state.trending.forEach(item => {
-        item.genre_ids.forEach(id => {
-            if (state.selectedGenres.find(genre => id === genre) != undefined) {
-              state.filteredTrending.push(item)
-            }
-        });
+      state.filteredTrending = state.trending.filter(item => {
+        return item.genre_ids.some(id => state.selectedGenres.includes(id));
       });
 
-      state.movies.forEach(item => {
-        item.genre_ids.forEach(id => {
-          state.selectedGenres.forEach(genre => {
-            if (id === genre) {
-              state.filteredMovies.push(item)
-            }
-          });
-        });
+      state.filteredMovies = state.movies.filter(item => {
+        return item.genre_ids.some(id => state.selectedGenres.includes(id));
       });
 
-      state.series.forEach(item => {
-        item.genre_ids.forEach(id => {
-          state.selectedGenres.forEach(genre => {
-            if (id === genre) {
-              state.filteredSeries.push(item)
-            }
-          });
-        });
-      });*/
-
+      state.filteredSeries = state.filteredSeries.filter(item => {
+        return item.genre_ids.some(id => state.selectedGenres.includes(id));
+      });
     }  
   },
 
