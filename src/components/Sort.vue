@@ -80,8 +80,8 @@
         border-radius: 0 0 20px 20px;
         padding: 0 0 32px 0;
         background: var(--Cinza-escuro, #343434);
-
         margin: 0;
+        cursor: pointer;
     }
 
     .sort #dropdown .options li {

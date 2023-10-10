@@ -64,8 +64,6 @@
 
         font-size: 16px;
         line-height: 24px;
-
-        cursor: pointer;
     }
 
     .searchBar button {
@@ -75,6 +73,7 @@
         background: var(--Roxo-Claro, #AC4DFF);
         border: none;
         padding: 0;
+        cursor: pointer;
     }
 
     .searchBar .buttonDisabled:hover {
