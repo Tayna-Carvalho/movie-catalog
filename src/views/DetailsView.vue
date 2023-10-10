@@ -16,7 +16,7 @@
                         {{item.release_date.substring(0, 4)}}
                     </h3>
                     <div class="dot"></div>
-                    <h3>2h 56min</h3>
+                    <h3>{{item.duration}}</h3>
                     <div class="dot"></div>
                     <h3>Brasileiro</h3>
                 </div>
@@ -44,12 +44,12 @@
 
         <div class="background">
 
-            <div v-if="video === undefined">
+            <div v-if="item.videoKey === undefined">
                 <img :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path" :alt="item.title">
             </div>
             
             <iframe v-else 
-                :src="'https://www.youtube.com/embed/' + video + '?si=PMSmpq_Om5iAGEvu&amp;autoplay=1&controls=0'" 
+                :src="'https://www.youtube.com/embed/' + item.videoKey + '?si=PMSmpq_Om5iAGEvu&amp;autoplay=1&controls=0'" 
                 title="YouTube video player" 
                 frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -68,8 +68,7 @@
         name: 'details-view',
 
         computed: {
-            item() {return this.$store.state.currentItem},
-            video() {return this.$store.state.currentVideo}
+            item() {return this.$store.state.currentItem}
         }
     } 
 

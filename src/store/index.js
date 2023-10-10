@@ -7,14 +7,13 @@ export default createStore({
     trending: [],
     movies: [],
     series: [],
-    currentItem: undefined,
-    currentVideo: undefined,
     search: [],
     genre: [],
     selectedGenres: [],
     filteredTrending: [],
     filteredMovies: [],
     filteredSeries: [],
+    currentDuration: undefined
   },
   
   mutations: {
@@ -38,18 +37,22 @@ export default createStore({
       state.genre = genre
     },
     //----------------------------------
-    loadCurrentVideo(state, movieKey) {
-      state.currentVideo = movieKey;
-    },
-    
     setCurrentItem(state, item) {
       state.currentItem = item
     },
+    
+    loadCurrentVideo(state, movieKey) {
+      state.currentItem.videoKey = movieKey;
+    },
 
+    loadCurrentDuration(state, duration) {
+      state.currentItem.duration = duration;
+    },
+    //----------------------------------
     searchByQuery(state, result) {
       state.search = result
     },
-
+    //----------------------------------
     setGenre(state, genre) {
       if (state.selectedGenres.includes(genre.id)){
         state.selectedGenres = state.selectedGenres.filter(item => item !== genre.id)
@@ -144,75 +147,7 @@ export default createStore({
         .catch(err => console.error(err));
 
     },
-    //----------------------------------
-    loadCurrentVideo({commit}, item){
 
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
-        }
-      };
-
-      function chooseVideo (video) {
-
-        if (video.length === 0) {
-          commit ('loadCurrentVideo', undefined)
-        } else {
-          try{
-            commit('loadCurrentVideo', video.find(item => item.name === "Official Trailer").key);
-          }
-          catch{
-            commit('loadCurrentVideo', video[0].key);
-          }
-        }
-      }
-
-      if (item.media_type === 'movie') {
-
-        axios
-        .get('https://api.themoviedb.org/3/movie/'+item.id+'/videos?language=en-US', options)
-        .then((response) => {
-          chooseVideo(response.data.results);
-        })
-        .catch(err => console.error(err));
-
-      } else {
-        if(item.media_type === 'tv') {
-
-          axios
-          .get('https://api.themoviedb.org/3/tv/'+item.id+'/videos?language=en-US', options)
-          .then((response) => {
-            chooseVideo(response.data.results);
-          })
-          .catch(err => console.error(err));
-        }
-      }
-
-    },
-
-    setCurrentItem({commit}, item){
-      commit('setCurrentItem', item);
-    },
-    //----------------------------------
-    searchByQuery({commit}, query) {
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
-        }
-      };
-
-      axios
-        .get('https://api.themoviedb.org/3/search/multi?query='+query+'&include_adult=true&language=en-US&page=1', options)
-        .then((response) => {
-          commit('searchByQuery', response.data.results);
-        })
-        .catch(err => console.error(err));
-    },
-    //----------------------------------
     loadGenre ({commit}){
       const options = {
         method: 'GET',
@@ -261,6 +196,121 @@ export default createStore({
 
         commit('loadGenre', genreList);
     },
+    //----------------------------------
+    setCurrentItem({commit}, item){
+      commit('setCurrentItem', item);
+    },
+    
+    loadCurrentVideo({commit}, item){
+
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
+        }
+      };
+
+      function chooseVideo (video) {
+
+        if (video.length === 0) {
+          commit ('loadCurrentVideo', undefined)
+        } else {
+          try{
+            commit('loadCurrentVideo', video.find(item => item.name === "Official Trailer").key);
+          }
+          catch{
+            commit('loadCurrentVideo', video[0].key);
+          }
+        }
+      }
+
+      if (item.media_type === 'movie') {
+
+        axios
+        .get('https://api.themoviedb.org/3/movie/'+item.id+'/videos?language=en-US', options)
+        .then((response) => {
+          chooseVideo(response.data.results);
+        })
+        .catch(err => console.error(err));
+
+      } else {
+        if(item.media_type === 'tv') {
+
+          axios
+          .get('https://api.themoviedb.org/3/tv/'+item.id+'/videos?language=en-US', options)
+          .then((response) => {
+            chooseVideo(response.data.results);
+          })
+          .catch(err => console.error(err));
+        }
+      }
+
+    },
+
+    loadCurrentDuration({commit}, item){
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
+        }
+      };
+
+      if (item.media_type === 'movie') {
+
+        axios
+        .get('https://api.themoviedb.org/3/movie/'+item.id+'?language=en-US', options)
+        .then((response) => {
+          var hours = Math.floor(response.data.runtime/60);
+          var minutes = response.data.runtime % 60
+
+          if (minutes === 0) {
+            commit('loadCurrentDuration', hours + 'h ');
+          } else {
+            commit('loadCurrentDuration', hours + 'h ' + minutes + 'min');
+          }
+          
+        })
+        .catch(err => console.error(err));
+
+      } else {
+        if(item.media_type === 'tv') {
+
+          axios
+          .get('https://api.themoviedb.org/3/tv/'+item.id+'?language=en-US', options)
+          .then((response) => {
+
+            if (response.data.number_of_seasons > 1) {
+              commit('loadCurrentDuration', response.data.number_of_seasons+' temp');
+            } else {
+              commit('loadCurrentDuration', response.data.number_of_episodes+' eps');
+            }
+          })
+          .catch(err => console.error(err));
+        }
+      }
+
+    },
+
+    //----------------------------------
+    searchByQuery({commit}, query) {
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
+        }
+      };
+
+      axios
+        .get('https://api.themoviedb.org/3/search/multi?query='+query+'&include_adult=true&language=en-US&page=1', options)
+        .then((response) => {
+          commit('searchByQuery', response.data.results);
+        })
+        .catch(err => console.error(err));
+    },
+    //----------------------------------
 
     setGenre({commit}, genre) {
       commit('setGenre', genre);
