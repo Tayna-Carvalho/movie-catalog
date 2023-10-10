@@ -3,15 +3,15 @@
     <form class="searchBar">
         <input type="text" placeholder="Pesquisar" v-model="this.query">
         
+        <router-link
 
-        <router-link 
             :to="query === '' ? '/' : '/buscar'"
             @click="searchByQuery()">
 
             <button :class="{buttonDisabled : query === ''}">buscar</button>
+
         </router-link>
 
-        
     </form>
 
 </template>
@@ -48,9 +48,9 @@
         background: var(--Branco-transparente, rgba(255, 255, 255, 0.30)); 
     }
 
-::-webkit-input-placeholder {
-    color: var(--cinza-claro-2, #A5A5A5);
-}
+    ::-webkit-input-placeholder {
+        color: var(--cinza-claro-2, #A5A5A5);
+    }
 
     .searchBar input{
         width: 605px; 
@@ -64,6 +64,8 @@
 
         font-size: 16px;
         line-height: 24px;
+
+        cursor: pointer;
     }
 
     .searchBar button {

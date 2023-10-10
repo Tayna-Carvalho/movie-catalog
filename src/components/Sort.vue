@@ -53,6 +53,8 @@
         gap: 118px;
         padding-right: 19px;
         background: var(--Cinza-escuro, #343434);
+
+        cursor: pointer;
     }
 
     .selected {

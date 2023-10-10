@@ -10,6 +10,7 @@
 
                 <nav>
                     <ul>
+
                         <li><h3><router-link 
                             to="/" 
                             class="headerNavegation" 
@@ -17,6 +18,7 @@
                             :class="{routerLinkSelected : selected === 1}">
 
                             Início
+
                         </router-link></h3></li>
 
                         <li><h3><router-link 
@@ -26,6 +28,7 @@
                             :class="{routerLinkSelected : selected === 2}">
 
                             Filmes
+
                         </router-link></h3></li>
 
                         <li><h3><router-link 
@@ -35,6 +38,7 @@
                             :class="{routerLinkSelected : selected === 3}">
 
                             Séries
+
                         </router-link></h3></li>
 
                         <li><h3><router-link 
@@ -44,7 +48,9 @@
                             :class="{routerLinkSelected : selected === 4}">
 
                             Favoritos
+
                         </router-link></h3></li>
+
                     </ul>
                 </nav>
 
