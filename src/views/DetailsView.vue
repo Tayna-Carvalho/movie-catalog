@@ -6,15 +6,20 @@
         <div class="leftColumn">
 
             <div class="upperDetails">
-                <h3 v-if="item.release_date === undefined">{{item.first_air_date.substring(0, 4)}}</h3>
-                <h3 v-else>{{item.release_date.substring(0, 4)}}</h3>
+
+                <h3 v-if="item.media_type === 'tv'">
+                    {{item.first_air_date.substring(0, 4)}}
+                </h3>
+                <h3 v-else>
+                    {{item.release_date.substring(0, 4)}}
+                </h3>
                 <div class="dot"></div>
                 <h3>2h 56min</h3>
                 <div class="dot"></div>
                 <h3>Brasileiro</h3>
             </div>
 
-            <h1 v-if="item.title === undefined">{{item.name}}</h1>
+            <h1 v-if="item.media_type === 'tv'">{{item.name}}</h1>
             <h1 v-else>{{item.title}}</h1>
 
             <h2 class="rater">{{(item.vote_average * 10).toFixed(0)}}% relevante</h2>
