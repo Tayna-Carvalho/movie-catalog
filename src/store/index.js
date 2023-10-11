@@ -13,6 +13,7 @@ export default createStore({
     filteredTrending: [],
     filteredMovies: [],
     filteredSeries: [],
+    favorites: [],
     currentItem: undefined
   },
   
@@ -90,7 +91,16 @@ export default createStore({
         return item.genre_ids.some(id => state.selectedGenres.includes(id));
       });
       
-    }  
+    }, 
+
+    setFavorites(state, item) {
+      if (state.favorites.includes(item.id)){
+        state.favorites = state.favorites.filter(element => element !== item.id)
+      }
+      else {
+        state.favorites.push(item.id)
+      }
+    },
   },
 
   actions: {
@@ -387,6 +397,10 @@ export default createStore({
 
     setFiteredLists({commit}) {
       commit('setFiteredLists')
+    },
+
+    setFavorites({commit}, item) {
+      commit('setFavorites', item);
     }
   }
 })
