@@ -13,6 +13,7 @@ export default createStore({
     filteredTrending: [],
     filteredMovies: [],
     filteredSeries: [],
+    favorites: [],
     currentItem: undefined
   },
   
@@ -106,7 +107,19 @@ export default createStore({
 
       }
       
-    }  
+    }, 
+
+    setFavorites(state, item) {
+
+      if (state.favorites.some(element => element.id === item.id)){
+        state.favorites = state.favorites.filter(element => element.id !== item.id)
+      }
+      else {
+        state.favorites.push(item)
+      }
+
+      console.log(state.favorites);
+    },
   },
 
   actions: {
@@ -406,6 +419,10 @@ export default createStore({
 
     setFiteredLists({commit}) {
       commit('setFiteredLists')
+    },
+
+    setFavorites({commit}, item) {
+      commit('setFavorites', item);
     }
   }
 })
