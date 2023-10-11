@@ -94,12 +94,15 @@ export default createStore({
     }, 
 
     setFavorites(state, item) {
-      if (state.favorites.includes(item.id)){
-        state.favorites = state.favorites.filter(element => element !== item.id)
+
+      if (state.favorites.some(element => element.id === item.id)){
+        state.favorites = state.favorites.filter(element => element.id !== item.id)
       }
       else {
-        state.favorites.push(item.id)
+        state.favorites.push(item)
       }
+
+      console.log(state.favorites);
     },
   },
 

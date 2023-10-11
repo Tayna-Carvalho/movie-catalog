@@ -11,7 +11,7 @@
           <Filter></Filter>
         </div>
         
-        <Gallery :itens="movie.filter(favorites)"></Gallery>
+        <Gallery :itens="favorites"></Gallery>
   
       </div>
   
@@ -31,7 +31,6 @@
       components: {Sort, Gallery, Filter},
   
       computed: {
-        movies() {return this.$store.state.filteredMovies},
         favorites() {return this.$store.state.favorites}
       }
     }

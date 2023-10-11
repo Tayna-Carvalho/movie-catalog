@@ -8,7 +8,7 @@
                 src="../assets/star-icon-selected.svg" 
                 alt="favorite icon" 
                 class="icon" 
-                @click="setFavorites(item)" v-if="favorites.includes(item.id)">
+                @click="setFavorites(item)" v-if="favorites.some(element => element.id === item.id)">
 
             <img 
                 src="../assets/star-icon.svg" 
@@ -26,7 +26,7 @@
 
                 <div class="dropShadow"></div>
 
-                <img :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path" :alt="item.title">
+                <img :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path" :alt="item.title" class="backdrop">
 
             </router-link>
             
@@ -79,10 +79,6 @@
     .gallery .itemContent {
         width: 414px;
         height: 241.88px;
-
-        display: flex;
-        align-items: flex-start;
-        justify-content: right;
     }
 
     .gallery .item {
@@ -95,9 +91,11 @@
         display: flex;
         justify-content: left;
         align-items: flex-end;
+        position: relative;
+        z-index: 0;
     }
 
-    .gallery .item img {
+    .gallery .item .backdrop {
         width: 414px;
         height: 241.88px;
 
@@ -118,8 +116,8 @@
         width: 32px;
         height: 32px;
         flex-shrink: 0;
+        position: relative;
         z-index: 3;
-        position: absolute;
     }
 
     .gallery .item .dropShadow {
