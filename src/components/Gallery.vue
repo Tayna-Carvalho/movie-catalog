@@ -2,26 +2,30 @@
 
     <section class="gallery">
 
-        <router-link 
-            to="/detalhes"
-            class="item" 
-            v-for="(item,index) in this.itens" :key="index"
-            @click="setStoreElements(item)" >
+        <div class="itemContent">
 
             <img 
-                :src="favorites.includes(item.id) ? '../assets/star-icon-selected': '../assets/star-icon.svg'" 
-                alt="favorite icon" 
-                class="icon" 
-                @click="setFavorites(item)">
+                    :src="'../assets/star-icon.svg'" 
+                    alt="favorite icon" 
+                    class="icon" 
+                    @click="setFavorites(item)">\\
+            <router-link 
+                to="/detalhes"
+                class="item" 
+                v-for="(item,index) in this.itens" :key="index"
+                @click="setStoreElements(item)" >
+                
+                <h3 class="title" v-if="item.media_type === 'tv'">{{ item.name }}</h3>
+                <h3 class="title" v-else>{{ item.title }}</h3>
 
-            <h3 class="title" v-if="item.media_type === 'tv'">{{ item.name }}</h3>
-            <h3 class="title" v-else>{{ item.title }}</h3>
+                <div class="dropShadow"></div>
 
-            <div class="dropShadow"></div>
+                <img :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path" :alt="item.title">
 
-            <img :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path" :alt="item.title">
-
-        </router-link>
+            </router-link>
+            
+        </div>
+        
 
     </section>
 
@@ -49,10 +53,6 @@
             setFavorites (item) {
                 this.$store.dispatch('setFavorites', item);
             }
-        },
-
-        computed: {
-            favorites() {return this.$store.state.favorites}
         }
     }
 
@@ -69,6 +69,13 @@
     .gallery .item {
         width: 414px;
         height: 241.88px;
+
+        border-radius: 8px;
+        box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.15);
+
+        display: flex;
+        justify-content: left;
+        align-items: flex-end;
     }
 
     .gallery .item img {
@@ -83,7 +90,8 @@
     .gallery .item .title {
         color: white;
         max-width: 414px;
-        position: relative;
+        padding:   0 16px 0 16px;
+        position: absolute;
         z-index: 2;
     }
 
@@ -97,14 +105,14 @@
 
     .gallery .item .dropShadow {
         background: linear-gradient(180deg, rgba(27, 27, 27, 0.00) 0%, #1B1B1B 80.7%);
-        width: 430px;
+        width: 100%;
         height: 149px;
         flex-shrink: 0;
         position: absolute;
         z-index: 1;
     }
 
-    .gallery .item img:hover {
+    .gallery .item:hover {
         border: 3px solid var(--Roxo-Claro, #AC4DFF);
     }
 
