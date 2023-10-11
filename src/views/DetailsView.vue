@@ -103,6 +103,7 @@
         background: linear-gradient(180deg, rgba(27, 27, 27, 0.00) 0%, #1B1B1B 100%);
 
         height: 1080px;
+        width: 1920px;
 
         position: absolute;
         top: 0;
@@ -161,12 +162,12 @@
 
     .details .background img{
         width: 1920px;
-        height: 1080px
+        height: 1080px;
     }
 
     .details .background iframe{
         width: 1920px;
-        height: 1080px
+        height: 1080px;
     }
 
 </style>
