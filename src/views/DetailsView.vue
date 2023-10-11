@@ -18,7 +18,7 @@
                     <div class="dot"></div>
                     <h3>{{item.duration}}</h3>
                     <div class="dot"></div>
-                    <h3>Brasileiro</h3>
+                    <h3>{{item.country}}</h3>
                 </div>
 
                 <h1 v-if="item.media_type === 'tv'">{{item.name}}</h1>
@@ -34,7 +34,7 @@
 
                 <h2 class="ageGroup">14</h2>
 
-                <h3><span class="title">Gêneros:</span> Ficção, Romance, Comédia</h3>
+                <h3><span class="title">Gêneros:</span>{{ getGenres(item.genre_ids, genres) }}</h3>
                 <h3><span class="title">Diretor:</span> {{ item.director }}</h3>
                 <h3><span class="title">Produtor:</span> {{ item.producer }}</h3>
 
@@ -68,7 +68,25 @@
         name: 'details-view',
 
         computed: {
-            item() {return this.$store.state.currentItem}
+            item() {return this.$store.state.currentItem},
+            genres() {return this.$store.state.genre}
+        },
+
+        methods: {
+            getGenres (list, genres) {
+                var genreNames = '';
+
+                list.forEach((element, index) => {
+                    if (index === list.length -1) {
+                        genreNames += genres.find(item => item.id === element).name.toString();
+                    } else {
+                        genreNames += genres.find(item => item.id === element).name.toString() + ', ';     
+                    }
+                });
+
+                genreNames.substring(0, genreNames.length-3)
+                return genreNames;
+            }
         }
     } 
 

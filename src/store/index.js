@@ -45,8 +45,9 @@ export default createStore({
       state.currentItem.videoKey = movieKey;
     },
 
-    loadCurrentDuration(state, duration) {
-      state.currentItem.duration = duration;
+    loadCurrentDetails(state, parameters) {
+      state.currentItem.duration = parameters.duration;
+      state.currentItem.country = parameters.country
     },
 
     loadCurrentCredits(state, parameters) {
@@ -60,9 +61,6 @@ export default createStore({
       if (parameters.producer !== undefined) {
         state.currentItem.producer = parameters.producer.name;
       }
-
-      console.log(state.currentItem.director);
-      console.log(state.currentItem.producer);
     },
     //----------------------------------
     searchByQuery(state, result) {
@@ -210,6 +208,7 @@ export default createStore({
         })
         .catch(err => console.error(err));
 
+        console.log(genreList)
         commit('loadGenre', genreList);
     },
     //----------------------------------
@@ -264,7 +263,7 @@ export default createStore({
 
     },
 
-    loadCurrentDuration({commit}, item){
+    loadCurrentDetails({commit}, item){
       const options = {
         method: 'GET',
         headers: {
@@ -278,15 +277,19 @@ export default createStore({
         axios
         .get('https://api.themoviedb.org/3/movie/'+item.id+'?language=en-US', options)
         .then((response) => {
-          var hours = Math.floor(response.data.runtime/60);
-          var minutes = response.data.runtime % 60
+
+          let hours = Math.floor(response.data.runtime/60);
+          let minutes = response.data.runtime % 60
+          let parameters = {};
+          parameters.country = response.data.production_countries[0].name;
 
           if (minutes === 0) {
-            commit('loadCurrentDuration', hours + 'h ');
+            parameters.duration = hours + 'h ';
+            commit('loadCurrentDetails', parameters);
           } else {
-            commit('loadCurrentDuration', hours + 'h ' + minutes + 'min');
+            parameters.duration = hours + 'h ' + minutes + 'min';
+            commit('loadCurrentDetails', parameters);
           }
-          
         })
         .catch(err => console.error(err));
 
@@ -297,11 +300,17 @@ export default createStore({
           .get('https://api.themoviedb.org/3/tv/'+item.id+'?language=en-US', options)
           .then((response) => {
 
+            let parameters = {};
+            parameters.country = response.data.production_countries[0].name;
+
             if (response.data.number_of_seasons > 1) {
-              commit('loadCurrentDuration', response.data.number_of_seasons+' temp');
+              parameters.duration = response.data.number_of_seasons+' temp';
+              commit('loadCurrentDetails', parameters);
             } else {
-              commit('loadCurrentDuration', response.data.number_of_episodes+' eps');
+              parameters.duration = response.data.number_of_episodes+' eps';
+              commit('loadCurrentDetails', parameters);
             }
+
           })
           .catch(err => console.error(err));
         }

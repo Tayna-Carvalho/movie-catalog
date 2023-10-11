@@ -31,7 +31,7 @@
                 this.$store.dispatch('setCurrentItem', undefined);
                 this.$store.dispatch('setCurrentItem', item);
                 this.$store.dispatch('loadCurrentVideo', item);
-                this.$store.dispatch('loadCurrentDuration', item);
+                this.$store.dispatch('loadCurrentDetails', item);
                 this.$store.dispatch('loadCurrentCredits', item);
             }
         }
