@@ -36,7 +36,9 @@ export default createStore({
     loadGenre(state, genre){
       state.genre = genre
     },
+
     //----------------------------------
+
     setCurrentItem(state, item) {
       state.currentItem = item
     },
@@ -62,11 +64,15 @@ export default createStore({
         state.currentItem.producer = parameters.producer.name;
       }
     },
+
     //----------------------------------
+
     searchByQuery(state, result) {
       state.search = result
     },
+
     //----------------------------------
+
     setGenre(state, genre) {
       if (state.selectedGenres.includes(genre.id)){
         state.selectedGenres = state.selectedGenres.filter(item => item !== genre.id)
@@ -78,17 +84,27 @@ export default createStore({
     
     setFiteredLists(state) {
       
-      state.filteredTrending = state.trending.filter(item => {
-        return item.genre_ids.some(id => state.selectedGenres.includes(id));
-      });
-  
-      state.filteredMovies = state.movies.filter(item => {
-        return item.genre_ids.some(id => state.selectedGenres.includes(id));
-      });
-  
-      state.filteredSeries = state.series.filter(item => {
-        return item.genre_ids.some(id => state.selectedGenres.includes(id));
-      });
+      if (state.selectedGenres.length === 0) {
+
+        state.filteredTrending = state.trending;
+        state.filteredMovies = state.movies;
+        state.filteredSeries = state.series;
+
+      } else {
+
+        state.filteredTrending = state.trending.filter(item => {
+          return item.genre_ids.some(id => state.selectedGenres.includes(id));
+        });
+
+        state.filteredMovies = state.movies.filter(item => {
+          return item.genre_ids.some(id => state.selectedGenres.includes(id));
+        });
+
+        state.filteredSeries = state.series.filter(item => {
+          return item.genre_ids.some(id => state.selectedGenres.includes(id));
+        });
+
+      }
       
     }  
   },
@@ -211,7 +227,9 @@ export default createStore({
         console.log(genreList)
         commit('loadGenre', genreList);
     },
+
     //----------------------------------
+
     setCurrentItem({commit}, item){
       commit('setCurrentItem', item);
     },
@@ -363,6 +381,7 @@ export default createStore({
     },
 
     //----------------------------------
+    
     searchByQuery({commit}, query) {
       const options = {
         method: 'GET',

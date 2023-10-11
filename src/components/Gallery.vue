@@ -13,7 +13,8 @@
 
             <div class="dropShadow"></div>
 
-            <img :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path" :alt="item.title">
+            <img src="../assets/empty-image.jpg" alt="image not found" v-if="item.backdrop_path === null">
+            <img :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path" :alt="item.title" v-else>
 
         </router-link>
         
