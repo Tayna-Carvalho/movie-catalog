@@ -13,7 +13,7 @@ export default createStore({
     filteredTrending: [],
     filteredMovies: [],
     filteredSeries: [],
-    currentDuration: undefined
+    currentItem: undefined
   },
   
   mutations: {
@@ -47,6 +47,22 @@ export default createStore({
 
     loadCurrentDuration(state, duration) {
       state.currentItem.duration = duration;
+    },
+
+    loadCurrentCredits(state, parameters) {
+
+      state.currentItem.director = '-';
+      state.currentItem.producer = '-';
+
+      if (parameters.director !== undefined ) {
+        state.currentItem.director = parameters.director.name;
+      }
+      if (parameters.producer !== undefined) {
+        state.currentItem.producer = parameters.producer.name;
+      }
+
+      console.log(state.currentItem.director);
+      console.log(state.currentItem.producer);
     },
     //----------------------------------
     searchByQuery(state, result) {
@@ -286,6 +302,50 @@ export default createStore({
             } else {
               commit('loadCurrentDuration', response.data.number_of_episodes+' eps');
             }
+          })
+          .catch(err => console.error(err));
+        }
+      }
+
+    },
+
+    loadCurrentCredits({commit}, item){
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw'
+        }
+      };
+
+      if (item.media_type === 'movie') {
+
+        axios
+        .get('https://api.themoviedb.org/3/movie/'+item.id+'/credits?language=en-US', options)
+        .then((response) => {'https://api.themoviedb.org/3/movie/'+item.id+'/credits?language=en-US'
+
+          let parameters = {};
+
+          parameters.director = response.data.crew.find(item => item.job === 'Director');
+          parameters.producer = response.data.crew.find(item => item.job === 'Producer');
+          
+          commit('loadCurrentCredits', parameters);
+        })
+        .catch(err => console.error(err));
+
+      } else {
+        if(item.media_type === 'tv') {
+
+          axios
+          .get('https://api.themoviedb.org/3/tv/'+item.id+'/credits?language=en-US', options)
+          .then((response) => {
+
+            let parameters = {};
+
+            parameters.director = response.data.crew.find(item => item.job === 'Director');
+            parameters.producer = response.data.crew.find(item => item.job === 'Producer');
+            
+            commit('loadCurrentCredits', parameters);
           })
           .catch(err => console.error(err));
         }

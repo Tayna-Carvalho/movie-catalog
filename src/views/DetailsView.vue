@@ -35,8 +35,8 @@
                 <h2 class="ageGroup">14</h2>
 
                 <h3><span class="title">Gêneros:</span> Ficção, Romance, Comédia</h3>
-                <h3><span class="title">Diretor:</span>  John Doe</h3>
-                <h3><span class="title">Ator principal:</span> Fulano de tal</h3>
+                <h3><span class="title">Diretor:</span> {{ item.director }}</h3>
+                <h3><span class="title">Produtor:</span> {{ item.producer }}</h3>
 
             </div>
 
