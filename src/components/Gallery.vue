@@ -2,17 +2,23 @@
 
     <section class="gallery">
 
-        <div class="itemContent">
+        <div class="itemContent" v-for="(item,index) in this.itens" :key="index">
 
             <img 
-                    :src="'../assets/star-icon.svg'" 
-                    alt="favorite icon" 
-                    class="icon" 
-                    @click="setFavorites(item)">\\
+                src="../assets/star-icon-selected.svg" 
+                alt="favorite icon" 
+                class="icon" 
+                @click="setFavorites(item)" v-if="favorites.includes(item.id)">
+
+            <img 
+                src="../assets/star-icon.svg" 
+                alt="favorite icon" 
+                class="icon" 
+                @click="setFavorites(item)" v-else>
+
             <router-link 
                 to="/detalhes"
                 class="item" 
-                v-for="(item,index) in this.itens" :key="index"
                 @click="setStoreElements(item)" >
                 
                 <h3 class="title" v-if="item.media_type === 'tv'">{{ item.name }}</h3>
@@ -53,6 +59,10 @@
             setFavorites (item) {
                 this.$store.dispatch('setFavorites', item);
             }
+        },
+
+        computed: {
+            favorites() {return this.$store.state.favorites}
         }
     }
 
@@ -64,6 +74,15 @@
         display: flex;
         flex-wrap: wrap;
         gap: 32px;
+    }
+
+    .gallery .itemContent {
+        width: 414px;
+        height: 241.88px;
+
+        display: flex;
+        align-items: flex-start;
+        justify-content: right;
     }
 
     .gallery .item {
@@ -99,8 +118,8 @@
         width: 32px;
         height: 32px;
         flex-shrink: 0;
-        position: absolute;
         z-index: 3;
+        position: absolute;
     }
 
     .gallery .item .dropShadow {
