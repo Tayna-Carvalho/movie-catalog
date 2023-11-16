@@ -32,7 +32,6 @@ const routes = [
     name: 'detalhes',
     component: () => import( '../views/DetailsView.vue')
   },
-
   {
     path: '/buscar',
     name: 'buscar',
