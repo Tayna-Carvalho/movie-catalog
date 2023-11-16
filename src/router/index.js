@@ -1,47 +1,47 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
   },
   {
     path: '/filmes',
     name: 'filmes',
-    component: () => import( '../views/MoviesView.vue')
+    component: () => import('../views/MoviesView.vue'),
   },
   {
     path: '/series',
     name: 'series',
-    component: () => import( '../views/SeriesView.vue')
+    component: () => import('../views/SeriesView.vue'),
   },
   {
     path: '/favoritos',
     name: 'favoritos',
-    component: () => import( '../views/FavoritesView.vue')
+    component: () => import('../views/FavoritesView.vue'),
   },
   {
     path: '/entrar',
     name: 'entrar',
-    component: () => import( '../views/LoginView.vue')
+    component: () => import('../views/LoginView.vue'),
   },
   {
     path: '/detalhes',
     name: 'detalhes',
-    component: () => import( '../views/DetailsView.vue')
+    component: () => import('../views/DetailsView.vue'),
   },
   {
     path: '/buscar',
     name: 'buscar',
-    component: () => import( '../views/SearchView.vue')
-  }
-]
+    component: () => import('../views/SearchView.vue'),
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

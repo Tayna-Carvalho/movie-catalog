@@ -1,9 +1,9 @@
 <template>
-    <h1>Entrar</h1>
+  <h1>Entrar</h1>
 </template>
-  
+
 <script>
-    export default {
-        name: 'login-view'
-    }
+export default {
+  name: 'login-view',
+};
 </script>
