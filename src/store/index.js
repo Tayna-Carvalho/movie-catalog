@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import axios from 'axios';
+import axiosInstance from '../helper/APIService';
 
 export default createStore({
   state: {
@@ -95,32 +95,16 @@ export default createStore({
 
   actions: {
     loadTrending({ commit }) {
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw',
-        },
-      };
-      axios
-        .get('https://api.themoviedb.org/3/trending/all/week', options)
+      axiosInstance
+        .get('trending/all/week')
         .then((response) => {
           commit('loadTrending', response.data.results);
         })
         .catch((err) => console.error(err));
     },
     loadMovies({ commit }) {
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw',
-        },
-      };
-      axios
-        .get('https://api.themoviedb.org/3/discover/movie', options)
+      axiosInstance
+        .get('discover/movie')
         .then((response) => {
           response.data.results.forEach((element) => {
             element.media_type = 'movie';
@@ -130,16 +114,8 @@ export default createStore({
         .catch((err) => console.error(err));
     },
     loadSeries({ commit }) {
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw',
-        },
-      };
-      axios
-        .get('https://api.themoviedb.org/3/discover/tv', options)
+      axiosInstance
+        .get('discover/tv')
         .then((response) => {
           response.data.results.forEach((element) => {
             element.media_type = 'tv';
@@ -149,17 +125,9 @@ export default createStore({
         .catch((err) => console.error(err));
     },
     loadGenre({ commit }) {
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw',
-        },
-      };
       var genreList = [];
-      axios
-        .get('https://api.themoviedb.org/3/genre/tv/list?language=en', options)
+      axiosInstance
+        .get('genre/tv/list?language=en')
         //fill genre list with series genres
         .then((response) => {
           response.data.genres.forEach((element) => {
@@ -167,11 +135,8 @@ export default createStore({
           });
         })
         .catch((err) => console.error(err));
-      axios
-        .get(
-          'https://api.themoviedb.org/3/genre/movie/list?language=en',
-          options
-        )
+      axiosInstance
+        .get('genre/movie/list?language=en')
         //fill genre list with movies genres
         .then((response) => {
           response.data.genres.forEach((element) => {
@@ -194,14 +159,6 @@ export default createStore({
       commit('setCurrentItem', item);
     },
     loadCurrentVideo({ commit }, item) {
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw',
-        },
-      };
       function chooseVideo(video) {
         if (video.length === 0) {
           commit('loadCurrentVideo', undefined);
@@ -217,26 +174,16 @@ export default createStore({
         }
       }
       if (item.media_type === 'movie') {
-        axios
-          .get(
-            'https://api.themoviedb.org/3/movie/' +
-              item.id +
-              '/videos?language=en-US',
-            options
-          )
+        axiosInstance
+          .get('movie/' + item.id + '/videos?language=en-US')
           .then((response) => {
             chooseVideo(response.data.results);
           })
           .catch((err) => console.error(err));
       } else {
         if (item.media_type === 'tv') {
-          axios
-            .get(
-              'https://api.themoviedb.org/3/tv/' +
-                item.id +
-                '/videos?language=en-US',
-              options
-            )
+          axiosInstance
+            .get('https://api.themoviedb.org/3/tv/' + item.id + '/videos?language=en-US')
             .then((response) => {
               chooseVideo(response.data.results);
             })
@@ -245,20 +192,9 @@ export default createStore({
       }
     },
     loadCurrentDetails({ commit }, item) {
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw',
-        },
-      };
       if (item.media_type === 'movie') {
-        axios
-          .get(
-            'https://api.themoviedb.org/3/movie/' + item.id + '?language=en-US',
-            options
-          )
+        axiosInstance
+          .get('movie/' + item.id + '?language=en-US')
           .then((response) => {
             let hours = Math.floor(response.data.runtime / 60);
             let minutes = response.data.runtime % 60;
@@ -275,11 +211,8 @@ export default createStore({
           .catch((err) => console.error(err));
       } else {
         if (item.media_type === 'tv') {
-          axios
-            .get(
-              'https://api.themoviedb.org/3/tv/' + item.id + '?language=en-US',
-              options
-            )
+          axiosInstance
+            .get('tv/' + item.id + '?language=en-US')
             .then((response) => {
               let parameters = {};
               parameters.country = response.data.production_countries[0].name;
@@ -296,26 +229,10 @@ export default createStore({
       }
     },
     loadCurrentCredits({ commit }, item) {
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw',
-        },
-      };
       if (item.media_type === 'movie') {
-        axios
-          .get(
-            'https://api.themoviedb.org/3/movie/' +
-              item.id +
-              '/credits?language=en-US',
-            options
-          )
+        axiosInstance
+          .get('movie/' + item.id + '/credits?language=en-US' )
           .then((response) => {
-            'https://api.themoviedb.org/3/movie/' +
-              item.id +
-              '/credits?language=en-US';
             let parameters = {};
             parameters.director = response.data.crew.find(
               (item) => item.job === 'Director'
@@ -328,13 +245,8 @@ export default createStore({
           .catch((err) => console.error(err));
       } else {
         if (item.media_type === 'tv') {
-          axios
-            .get(
-              'https://api.themoviedb.org/3/tv/' +
-                item.id +
-                '/credits?language=en-US',
-              options
-            )
+          axiosInstance
+            .get('tv/' + item.id + '/credits?language=en-US')
             .then((response) => {
               let parameters = {};
               parameters.director = response.data.crew.find(
@@ -350,21 +262,8 @@ export default createStore({
       }
     },
     searchByQuery({ commit }, query) {
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjdmNjBiNjMxMjYyNDI3OTJkNmMyODlkODAxYzgyYiIsInN1YiI6IjY1MTcyZGI2MDcyMTY2MDBjNTY2NDZjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._XbKy-dFEL5iwQt7Kb16wLjel_z2uecB-ntscgyMWtw',
-        },
-      };
-      axios
-        .get(
-          'https://api.themoviedb.org/3/search/multi?query=' +
-            query +
-            '&include_adult=true&language=en-US&page=1',
-          options
-        )
+      axiosInstance
+        .get('search/multi?query=' + query + '&include_adult=true&language=en-US&page=1')
         .then((response) => {
           commit('searchByQuery', response.data.results);
         })
