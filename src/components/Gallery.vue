@@ -70,6 +70,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: 32px;
+  z-index: 0;
 }
 .gallery .itemContent {
   width: 414px;
