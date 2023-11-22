@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import axiosInstance from '../helper/APIService';
+import movieDBInstance from '@/helper/APIService';
 
 export default createStore({
   state: {
@@ -57,9 +57,7 @@ export default createStore({
     },
     setGenre(state, genre) {
       if (state.selectedGenres.includes(genre.id)) {
-        state.selectedGenres = state.selectedGenres.filter(
-          (item) => item !== genre.id
-        );
+        state.selectedGenres = state.selectedGenres.filter((item) => item !== genre.id);
       } else {
         state.selectedGenres.push(genre.id);
       }
@@ -83,9 +81,7 @@ export default createStore({
     },
     setFavorites(state, item) {
       if (state.favorites.some((element) => element.id === item.id)) {
-        state.favorites = state.favorites.filter(
-          (element) => element.id !== item.id
-        );
+        state.favorites = state.favorites.filter((element) => element.id !== item.id);
       } else {
         state.favorites.push(item);
       }
@@ -95,7 +91,7 @@ export default createStore({
 
   actions: {
     loadTrending({ commit }) {
-      axiosInstance
+      movieDBInstance
         .get('trending/all/week')
         .then((response) => {
           commit('loadTrending', response.data.results);
@@ -103,7 +99,7 @@ export default createStore({
         .catch((err) => console.error(err));
     },
     loadMovies({ commit }) {
-      axiosInstance
+      movieDBInstance
         .get('discover/movie')
         .then((response) => {
           response.data.results.forEach((element) => {
@@ -114,7 +110,7 @@ export default createStore({
         .catch((err) => console.error(err));
     },
     loadSeries({ commit }) {
-      axiosInstance
+      movieDBInstance
         .get('discover/tv')
         .then((response) => {
           response.data.results.forEach((element) => {
@@ -126,7 +122,7 @@ export default createStore({
     },
     loadGenre({ commit }) {
       var genreList = [];
-      axiosInstance
+      movieDBInstance
         .get('genre/tv/list?language=en')
         //fill genre list with series genres
         .then((response) => {
@@ -135,24 +131,17 @@ export default createStore({
           });
         })
         .catch((err) => console.error(err));
-      axiosInstance
+      movieDBInstance
         .get('genre/movie/list?language=en')
         //fill genre list with movies genres
         .then((response) => {
           response.data.genres.forEach((element) => {
-            var finded;
-            genreList.forEach((item) => {
-              if (item.id === element.id) {
-                finded = true;
-              }
-            });
-            if (!finded) {
+            if (genreList.filter((item) => item.id === element.id).length === 0) {
               genreList.push(element);
             }
           });
         })
         .catch((err) => console.error(err));
-      console.log(genreList);
       commit('loadGenre', genreList);
     },
     setCurrentItem({ commit }, item) {
@@ -164,17 +153,14 @@ export default createStore({
           commit('loadCurrentVideo', undefined);
         } else {
           try {
-            commit(
-              'loadCurrentVideo',
-              video.find((item) => item.name === 'Official Trailer').key
-            );
+            commit('loadCurrentVideo', video.find((item) => item.name === 'Official Trailer').key);
           } catch {
             commit('loadCurrentVideo', video[0].key);
           }
         }
       }
       if (item.media_type === 'movie') {
-        axiosInstance
+        movieDBInstance
           .get('movie/' + item.id + '/videos?language=en-US')
           .then((response) => {
             chooseVideo(response.data.results);
@@ -182,7 +168,7 @@ export default createStore({
           .catch((err) => console.error(err));
       } else {
         if (item.media_type === 'tv') {
-          axiosInstance
+          movieDBInstance
             .get('https://api.themoviedb.org/3/tv/' + item.id + '/videos?language=en-US')
             .then((response) => {
               chooseVideo(response.data.results);
@@ -193,7 +179,7 @@ export default createStore({
     },
     loadCurrentDetails({ commit }, item) {
       if (item.media_type === 'movie') {
-        axiosInstance
+        movieDBInstance
           .get('movie/' + item.id + '?language=en-US')
           .then((response) => {
             let hours = Math.floor(response.data.runtime / 60);
@@ -211,7 +197,7 @@ export default createStore({
           .catch((err) => console.error(err));
       } else {
         if (item.media_type === 'tv') {
-          axiosInstance
+          movieDBInstance
             .get('tv/' + item.id + '?language=en-US')
             .then((response) => {
               let parameters = {};
@@ -230,31 +216,23 @@ export default createStore({
     },
     loadCurrentCredits({ commit }, item) {
       if (item.media_type === 'movie') {
-        axiosInstance
-          .get('movie/' + item.id + '/credits?language=en-US' )
+        movieDBInstance
+          .get('movie/' + item.id + '/credits?language=en-US')
           .then((response) => {
             let parameters = {};
-            parameters.director = response.data.crew.find(
-              (item) => item.job === 'Director'
-            );
-            parameters.producer = response.data.crew.find(
-              (item) => item.job === 'Producer'
-            );
+            parameters.director = response.data.crew.find((item) => item.job === 'Director');
+            parameters.producer = response.data.crew.find((item) => item.job === 'Producer');
             commit('loadCurrentCredits', parameters);
           })
           .catch((err) => console.error(err));
       } else {
         if (item.media_type === 'tv') {
-          axiosInstance
+          movieDBInstance
             .get('tv/' + item.id + '/credits?language=en-US')
             .then((response) => {
               let parameters = {};
-              parameters.director = response.data.crew.find(
-                (item) => item.job === 'Director'
-              );
-              parameters.producer = response.data.crew.find(
-                (item) => item.job === 'Producer'
-              );
+              parameters.director = response.data.crew.find((item) => item.job === 'Director');
+              parameters.producer = response.data.crew.find((item) => item.job === 'Producer');
               commit('loadCurrentCredits', parameters);
             })
             .catch((err) => console.error(err));
@@ -262,7 +240,7 @@ export default createStore({
       }
     },
     searchByQuery({ commit }, query) {
-      axiosInstance
+      movieDBInstance
         .get('search/multi?query=' + query + '&include_adult=true&language=en-US&page=1')
         .then((response) => {
           commit('searchByQuery', response.data.results);
