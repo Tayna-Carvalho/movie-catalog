@@ -13,6 +13,7 @@ export default createStore({
     filteredMovies: [],
     filteredSeries: [],
     favorites: [],
+    watched: [],
     currentItem: undefined,
   },
 

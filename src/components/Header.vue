@@ -12,8 +12,8 @@
             <li>
               <h3>
                 <router-link
-                  to="/"
                   class="headerNavegation"
+                  to="/"
                   @click="selected = 1"
                   :class="{ routerLinkSelected: selected === 1 }">
                   Início
@@ -23,8 +23,8 @@
             <li>
               <h3>
                 <router-link
-                  to="/filmes"
                   class="headerNavegation"
+                  to="/filmes"
                   @click="selected = 2"
                   :class="{ routerLinkSelected: selected === 2 }">
                   Filmes
@@ -34,8 +34,8 @@
             <li>
               <h3>
                 <router-link
-                  to="/series"
                   class="headerNavegation"
+                  to="/series"
                   @click="selected = 3"
                   :class="{ routerLinkSelected: selected === 3 }">
                   Séries
@@ -45,11 +45,22 @@
             <li>
               <h3>
                 <router-link
-                  to="/favoritos"
                   class="headerNavegation"
+                  to="/favoritos"
                   @click="selected = 4"
                   :class="{ routerLinkSelected: selected === 4 }">
                   Favoritos
+                </router-link>
+              </h3>
+            </li>
+            <li>
+              <h3>
+                <router-link
+                  class="headerNavegation"
+                  to="/assistidos"
+                  @click="selected = 5"
+                  :class="{ routerLinkSelected: selected === 5 }">
+                  Assistidos
                 </router-link>
               </h3>
             </li>
@@ -60,8 +71,8 @@
         <MinimalistSearchBar></MinimalistSearchBar>
         <h3>
           <router-link
-            to="/entrar"
             class="headerNavegation"
+            to="/entrar"
             >Entrar</router-link
           >
         </h3>
@@ -116,7 +127,8 @@ header .container .leftContent .logotype {
 }
 header .container .leftContent ul {
   display: flex;
-  gap: 37px;
+  width: 583px;
+  justify-content: space-between;
   margin: 0;
   padding: 0;
   list-style-type: none;

@@ -67,6 +67,7 @@ export default {
 
 <style>
 .gallery {
+  height: 1080px;
   display: flex;
   flex-wrap: wrap;
   gap: 32px;

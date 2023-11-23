@@ -23,6 +23,11 @@ const routes = [
     component: () => import('../views/FavoritesView.vue'),
   },
   {
+    path: '/assistidos',
+    name: 'assistidos',
+    component: () => import('../views/WatchedView.vue'),
+  },
+  {
     path: '/entrar',
     name: 'entrar',
     component: () => import('../views/LoginView.vue'),

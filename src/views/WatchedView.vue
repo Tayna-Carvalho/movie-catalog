@@ -1,12 +1,12 @@
 <template>
   <section class="favorites container">
-    <h3 class="pageDescription">Favoritos</h3>
+    <h3 class="pageDescription">Assistidos</h3>
     <div class="content">
       <div class="filtersAndSort">
         <Sort></Sort>
         <Filter></Filter>
       </div>
-      <Gallery :itens="favorites"></Gallery>
+      <Gallery :itens="watched"></Gallery>
     </div>
   </section>
 </template>
@@ -16,11 +16,11 @@ import Sort from '@/components/Sort.vue';
 import Gallery from '@/components/Gallery.vue';
 import Filter from '@/components/Filter.vue';
 export default {
-  name: 'favorites-view',
+  name: 'watched-view',
   components: { Sort, Gallery, Filter },
   computed: {
-    favorites() {
-      return this.$store.state.favorites;
+    watched() {
+      return this.$store.state.watched;
     },
   },
 };

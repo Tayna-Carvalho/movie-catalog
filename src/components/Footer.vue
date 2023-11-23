@@ -17,14 +17,15 @@ export default {
 
 <style>
 footer {
-  background-color: blueviolet;
-  height: 128px;
   width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  padding: 16px;
+  margin-top: 80px;
   background: var(--Preto, #1b1b1b);
   box-shadow: 0px -16px 50px 0px rgba(0, 0, 0, 0.15);
 }

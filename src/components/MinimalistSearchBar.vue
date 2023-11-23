@@ -1,7 +1,7 @@
 <template>
   <div class="minimalistSearchBar">
     <router-link
-      :to="query === '' ? '/' : '/buscar'"
+      :to="query === '' ? '' : '/buscar'"
       class="searchButton"
       @click="searchByQuery()">
       <img
