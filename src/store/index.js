@@ -86,7 +86,14 @@ export default createStore({
       } else {
         state.favorites.push(item);
       }
-      console.log(state.favorites);
+    },
+    setWatched(state, item) {
+      if (state.watched.some((element) => element.id === item.id)) {
+        state.watched = state.watched.filter((element) => element.id !== item.id);
+      } else {
+        state.watched.push(item);
+      }
+      console.log(state.watched);
     },
   },
 
@@ -256,6 +263,9 @@ export default createStore({
     },
     setFavorites({ commit }, item) {
       commit('setFavorites', item);
+    },
+    setWatched({ commit }, item) {
+      commit('setWatched', item);
     },
   },
 });

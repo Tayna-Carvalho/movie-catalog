@@ -21,17 +21,23 @@
         </div>
         <h1 v-if="item.media_type === 'tv'">{{ item.name }}</h1>
         <h1 v-else>{{ item.title }}</h1>
-        <h2 class="rater">
-          {{ (item.vote_average * 10).toFixed(0) }}% relevante
-        </h2>
+        <h2 class="rater">{{ (item.vote_average * 10).toFixed(0) }}% relevante</h2>
         <h3>{{ item.overview }}</h3>
       </div>
       <div class="rightColumn">
-        <h2 class="ageGroup">14</h2>
-        <h3>
-          <span class="title">Gêneros:</span
-          >{{ getGenres(item.genre_ids, genres) }}
-        </h3>
+        <button
+          v-if="watched.some((element) => element.id === item.id)"
+          @click="setWatched(item)"
+          class="watchedButtonSelected">
+          assistido
+        </button>
+        <button
+          v-else
+          @click="setWatched(item)"
+          class="watchedButton">
+          assistido
+        </button>
+        <h3><span class="title">Gêneros:</span>{{ getGenres(item.genre_ids, genres) }}</h3>
         <h3><span class="title">Diretor:</span> {{ item.director }}</h3>
         <h3><span class="title">Produtor:</span> {{ item.producer }}</h3>
       </div>
@@ -44,12 +50,7 @@
       </div>
       <iframe
         v-else
-        :src="
-          'https://www.youtube.com/embed/' +
-          item.videoKey +
-          '?si=PMSmpq_Om5iAGEvu&amp;autoplay=1&controls=0'
-        "
-        title="YouTube video player"
+        :src="'https://www.youtube.com/embed/' + item.videoKey + '?si=PMSmpq_Om5iAGEvu&amp;autoplay=1&controls=0'"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen>
@@ -68,22 +69,25 @@ export default {
     genres() {
       return this.$store.state.genre;
     },
+    watched() {
+      return this.$store.state.watched;
+    },
   },
   methods: {
     getGenres(list, genres) {
       var genreNames = '';
       list.forEach((element, index) => {
         if (index === list.length - 1) {
-          genreNames += genres
-            .find((item) => item.id === element)
-            .name.toString();
+          genreNames += genres.find((item) => item.id === element).name.toString();
         } else {
-          genreNames +=
-            genres.find((item) => item.id === element).name.toString() + ', ';
+          genreNames += genres.find((item) => item.id === element).name.toString() + ', ';
         }
       });
       genreNames.substring(0, genreNames.length - 3);
       return genreNames;
+    },
+    setWatched(item) {
+      this.$store.dispatch('setWatched', item);
     },
   },
 };
@@ -96,8 +100,8 @@ export default {
   gap: 27px;
   padding: 0 64px 32px 64px;
   background: linear-gradient(180deg, rgba(27, 27, 27, 0) 0%, #1b1b1b 100%);
-  height: 1080px;
-  width: 1920px;
+  width: 100%;
+  height: 120%;
   position: absolute;
   top: 0;
   left: 0;
@@ -128,21 +132,38 @@ export default {
   flex-direction: column;
   gap: 16px;
 }
-.details .mainDetails .rightColumn .ageGroup {
+.details .mainDetails .rightColumn .watchedButton {
   display: flex;
+  width: 123px;
+  padding: 8px;
   justify-content: center;
   align-items: center;
-  width: 64px;
-  height: 64px;
   border-radius: 8px;
-  background: var(--Laranja-Claro, #ff6a00);
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid var(--cinza-claro-2, #a5a5a5);
+}
+.details .mainDetails .rightColumn .watchedButtonSelected {
+  display: flex;
+  width: 123px;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #ac4dff;
+  color: white;
+  border: none;
+}
+.details .mainDetails .rightColumn .watchedButton:hover {
+  color: #ac4dff;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid var(--Roxo-Claro, #ac4dff);
 }
 .details .mainDetails .rightColumn .title {
   color: var(--cinza-claro-2, #a5a5a5);
 }
 .details .background img {
-  width: 1920px;
-  height: 1080px;
+  width: 100%;
+  height: auto;
 }
 .details .background iframe {
   width: 1920px;

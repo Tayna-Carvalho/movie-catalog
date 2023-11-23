@@ -16,6 +16,12 @@
         class="icon"
         @click="setFavorites(item)"
         v-else />
+
+      <h4
+        class="tagAssistido"
+        v-if="watched.some((element) => element.id === item.id)">
+        Assistido
+      </h4>
       <router-link
         to="/detalhes"
         class="item"
@@ -61,6 +67,9 @@ export default {
     favorites() {
       return this.$store.state.favorites;
     },
+    watched() {
+      return this.$store.state.watched;
+    },
   },
 };
 </script>
@@ -87,6 +96,17 @@ export default {
   margin-left: 366px;
   margin-top: 24.14px;
   padding: 0;
+}
+.gallery .itemContent .tagAssistido {
+  display: flex;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px 8px 8px 0px;
+  background: var(--Roxo-Claro, #ac4dff);
+  position: absolute;
+  z-index: 4;
+  margin-top: 24.14px;
 }
 .gallery .item {
   width: 406px;
