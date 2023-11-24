@@ -37,7 +37,8 @@
           {{ item.title }}
         </h3>
         <div class="dropShadow"></div>
-        <img
+        <img class="backdrop" v-if="item.backdrop_path === null" src="../assets/empty-image.jpg" alt="image not found">
+        <img v-else
           :src="'https://image.tmdb.org/t/p/w500/' + item.backdrop_path"
           :alt="item.title"
           class="backdrop" />
