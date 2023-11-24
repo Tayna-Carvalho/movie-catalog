@@ -15,6 +15,7 @@ export default createStore({
     favorites: [],
     watched: [],
     currentItem: undefined,
+    sortOption: 'popularity',
   },
 
   mutations: {
@@ -79,9 +80,10 @@ export default createStore({
           return item.genre_ids.some((id) => state.selectedGenres.includes(id));
         });
       }
+      this.dispatch('sortFilteresLists', this.chosen);
     },
-    sortFilteresLists(state, chosen) {
-      switch (chosen) {
+    sortFilteresLists(state) {
+      switch (state.sortOption) {
         case 'popularity':
           state.filteredTrending.sort(function(a, b) {
             return b.popularity - a.popularity;
@@ -195,6 +197,9 @@ export default createStore({
       }
       console.log(state.watched);
     },
+    setSortOption(state, option) {
+      state.sortOption = option;
+    }
   },
 
   actions: {
@@ -361,8 +366,8 @@ export default createStore({
     setFiteredLists({ commit }) {
       commit('setFiteredLists');
     },
-    sortFilteresLists({commit}, chosen){
-      commit('sortFilteresLists', chosen);
+    sortFilteresLists({commit}){
+      commit('sortFilteresLists');
     },
     setFavorites({ commit }, item) {
       commit('setFavorites', item);
@@ -370,5 +375,8 @@ export default createStore({
     setWatched({ commit }, item) {
       commit('setWatched', item);
     },
+    setSortOption({ commit }, option) {
+      commit('setSortOption', option);
+    }
   },
 });

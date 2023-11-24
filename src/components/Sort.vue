@@ -12,31 +12,30 @@
       </div>
       <ul
         class="options"
-        v-if="selected"
-        @click="setSort()">
+        v-if="selected">
         <li
-          @click="chosen = 'popularity'"
-          :class="{ optionSelected: chosen === 'popularity' }">
+          @click="setSort('popularity')"
+          :class="{ optionSelected: sortOption === 'popularity' }">
           <h3>Popularidade</h3>
         </li>
         <li
-          @click="chosen = 'rating'"
-          :class="{ optionSelected: chosen === 'rating' }">
+          @click="setSort('rating')"
+          :class="{ optionSelected: sortOption === 'rating' }">
           <h3>Avaliação</h3>
         </li>
         <li
-          @click="chosen = 'date'"
-          :class="{ optionSelected: chosen === 'date' }">
+          @click="setSort('date')"
+          :class="{ optionSelected: sortOption === 'date' }">
           <h3>Data de lançamento</h3>
         </li>
         <li
-          @click="chosen = 'AZ'"
-          :class="{ optionSelected: chosen === 'AZ' }">
+          @click="setSort('AZ')"
+          :class="{ optionSelected: sortOption === 'AZ' }">
           <h3>Título (A-Z)</h3>
         </li>
         <li
-          @click="chosen = 'ZA'"
-          :class="{ optionSelected: chosen === 'ZA' }">
+          @click="setSort('ZA')"
+          :class="{ optionSelected: sortOption === 'ZA' }">
           <h3>Título (Z-A)</h3>
         </li>
       </ul>
@@ -50,13 +49,18 @@ export default {
   data() {
     return {
       selected: false,
-      chosen: 'popularity',
     };
   },
   methods: {
-    setSort() {
-      this.$store.dispatch('sortFilteresLists', this.chosen);
+    setSort(chosen) {
+      this.$store.dispatch('setSortOption', chosen)
+      this.$store.dispatch('sortFilteresLists');
     }
+  },
+  computed: {
+    sortOption() {
+      return this.$store.state.sortOption;
+    },
   }
 };
 </script>
