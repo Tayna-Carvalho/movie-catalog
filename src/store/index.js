@@ -80,6 +80,106 @@ export default createStore({
         });
       }
     },
+    sortFilteresLists(state, chosen) {
+      switch (chosen) {
+        case 'popularity':
+          state.filteredTrending.sort(function(a, b) {
+            return b.popularity - a.popularity;
+          });
+          state.filteredMovies.sort(function(a, b) {
+            return b.popularity - a.popularity;
+          });
+          state.filteredSeries.sort(function(a, b) {
+            return b.popularity - a.popularity;
+          });
+          break;
+        case 'rating':
+          state.filteredTrending.sort(function(a, b) {
+            return b.vote_average - a.vote_average;
+          });
+          state.filteredMovies.sort(function(a, b) {
+            return b.vote_average - a.vote_average;
+          });
+          state.filteredSeries.sort(function(a, b) {
+            return b.vote_average - a.vote_average;
+          });
+          break;
+        case 'date':
+          state.filteredTrending.sort(function(a, b) {
+            var dataA;
+            var dataB;
+            if (a.media_type === 'movie'){
+              dataA = new Date(a.release_date);
+            } else {
+              dataA = new Date(a.first_air_date);
+            }
+            if (a.media_type === 'movie'){
+              dataB = new Date(b.release_date);
+            } else {
+              dataB = new Date(b.first_air_date);
+            }
+            return dataB - dataA;
+          });
+          state.filteredMovies.sort(function(a, b) {
+            const dataA = new Date(a.release_date);
+            const dataB = new Date(b.release_date);
+            return dataB - dataA;
+          });
+          state.filteredSeries.sort(function(a, b) {
+            const dataA = new Date(a.first_air_date);
+            const dataB = new Date(b.first_air_date);
+            return dataB - dataA;
+          });
+          break;
+        case 'AZ':
+          state.filteredTrending.sort(function(a, b) {
+            var titleA;
+            var titleB;
+            if (a.media_type === 'movie') {
+              titleA = a.title;
+            } else {
+              titleA = a.name;
+            }
+            if (b.media_type === 'movie') {
+              titleB = b.title;
+            } else {
+              titleB = b.name;
+            }
+            return titleA.toLowerCase().localeCompare(titleB.toLowerCase())
+          });
+          state.filteredMovies.sort(function(a, b) {
+            return a.title.toLowerCase().localeCompare(b.title.toLowerCase())
+          });
+          state.filteredSeries.sort(function(a, b) {
+            return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+          });
+          break;
+        case 'ZA':
+          state.filteredTrending.sort(function(a, b) {
+            var titleA;
+            var titleB;
+            if (a.media_type === 'movie') {
+              titleA = a.title;
+            } else {
+              titleA = a.name;
+            }
+            if (b.media_type === 'movie') {
+              titleB = b.title;
+            } else {
+              titleB = b.name;
+            }
+            return titleB.toLowerCase().localeCompare(titleA.toLowerCase())
+          });
+          state.filteredMovies.sort(function(a, b) {
+            return b.title.toLowerCase().localeCompare(a.title.toLowerCase())
+          });
+          state.filteredSeries.sort(function(a, b) {
+            return b.name.toLowerCase().localeCompare(a.name.toLowerCase())
+          });
+          break;
+      }
+      console.log(state.filteredMovies);
+    },
     setFavorites(state, item) {
       if (state.favorites.some((element) => element.id === item.id)) {
         state.favorites = state.favorites.filter((element) => element.id !== item.id);
@@ -260,6 +360,9 @@ export default createStore({
     },
     setFiteredLists({ commit }) {
       commit('setFiteredLists');
+    },
+    sortFilteresLists({commit}, chosen){
+      commit('sortFilteresLists', chosen);
     },
     setFavorites({ commit }, item) {
       commit('setFavorites', item);

@@ -12,7 +12,8 @@
       </div>
       <ul
         class="options"
-        v-if="selected">
+        v-if="selected"
+        @click="setSort()">
         <li
           @click="chosen = 'popularity'"
           :class="{ optionSelected: chosen === 'popularity' }">
@@ -52,6 +53,11 @@ export default {
       chosen: 'popularity',
     };
   },
+  methods: {
+    setSort() {
+      this.$store.dispatch('sortFilteresLists', this.chosen);
+    }
+  }
 };
 </script>
 
