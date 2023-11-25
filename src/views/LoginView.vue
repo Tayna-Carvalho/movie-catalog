@@ -29,11 +29,6 @@
       </div>
       <div class="login">
         <h2>Entre com seu e-mail e senha</h2>
-        <div class="icon">
-          <img
-            src=""
-            alt="" />
-        </div>
         <input
           type="text"
           placeholder="Nome" />
@@ -134,7 +129,6 @@ export default {
   background: rgba(255, 255, 255, 0.15);
   color: var(--Branco-transparente, rgba(255, 255, 255, 0.3));
   font-feature-settings: 'clig' off, 'liga' off;
-
   /* H3 */
   font-size: 26px;
   line-height: 48px;
