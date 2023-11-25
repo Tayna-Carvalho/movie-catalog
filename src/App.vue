@@ -22,7 +22,7 @@ export default {
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  font-weight: 400;
+  font-weight: normal;
   color-scheme: light dark;
   color: white;
   background-color: var(--Preto, #1b1b1b);
