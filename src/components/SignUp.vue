@@ -1,5 +1,5 @@
 <template>
-  <section class="login">
+  <section class="signUp">
     <h2>Insira seus dados de cadastro</h2>
     <input
       type="text"
@@ -47,3 +47,13 @@ export default {
   },
 };
 </script>
+
+<style>
+.sign .box .content .signUp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+}
+</style>

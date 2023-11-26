@@ -69,13 +69,14 @@
       </section>
       <section class="rightContent">
         <MinimalistSearchBar></MinimalistSearchBar>
-        <h3>
+        <h3 v-if="user.id === ''">
           <router-link
             class="headerNavegation"
             to="/entrar"
             >Entrar</router-link
           >
         </h3>
+        <h3 v-else>Perfil</h3>
       </section>
     </div>
   </header>
@@ -91,6 +92,11 @@ export default {
     return {
       selected: 1,
     };
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
   },
 };
 </script>

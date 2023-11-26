@@ -30,7 +30,7 @@ const routes = [
   {
     path: '/entrar',
     name: 'entrar',
-    component: () => import('../views/LoginView.vue'),
+    component: () => import('../views/Sign.vue'),
   },
   {
     path: '/detalhes',
