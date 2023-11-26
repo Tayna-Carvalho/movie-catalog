@@ -27,23 +27,18 @@
           Cadastro
         </h2>
       </div>
-      <div class="login">
-        <h2>Entre com seu e-mail e senha</h2>
-        <input
-          type="text"
-          placeholder="Nome" />
-        <input
-          type="text"
-          placeholder="Senha" />
-        <button>entrar</button>
-      </div>
+      <Login v-if="selected === 1"></Login>
+      <SignUp v-if="selected === 0"></SignUp>
     </div>
   </div>
 </template>
 
 <script>
+import Login from '../components/Login.vue';
+import SignUp from '@/components/SignUp.vue';
 export default {
   name: 'login-view',
+  components: { Login, SignUp },
   data() {
     return {
       selected: 1,

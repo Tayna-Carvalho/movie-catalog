@@ -6,9 +6,8 @@ export const getUsers = (_, res) => {
     return res.status(200).json(data);
   });
 };
-
 export const addUser = (req, res) => {
-  const q = "INSERT INTO user('name', 'email','password') VALUES(?)";
+  const q = 'INSERT INTO user(name, email, password) VALUES(?)';
   const values = [req.body.name, req.body.email, req.body.password];
   db.query(q, [values], (err) => {
     if (err) return res.json(err);
@@ -17,9 +16,9 @@ export const addUser = (req, res) => {
 };
 
 export const updateUser = (req, res) => {
-  const q = "UPDADE user('name', 'email','password') VALUES(?)";
+  const q = 'UPDADE user(name, email, password) VALUES(?)';
   const values = [req.body.name, req.body.email, req.body.password];
-  reqbody.nome;
+  req.body.nome;
   db.query(q, [...values, req.params.id], (err) => {
     if (err) return res.json(err);
     return res.status(200).json('Usuário atualizado com sucesso.');

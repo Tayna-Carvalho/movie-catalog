@@ -1,8 +1,15 @@
 import { createStore } from 'vuex';
 import movieDBInstance from '@/helper/APIService';
+import axios from 'axios';
 
 export default createStore({
   state: {
+    user: {
+      id: '',
+      name: '',
+      email: '',
+      password: '',
+    },
     trending: [],
     movies: [],
     series: [],
@@ -85,56 +92,56 @@ export default createStore({
     sortFilteresLists(state) {
       switch (state.sortOption) {
         case 'popularity':
-          state.filteredTrending.sort(function(a, b) {
+          state.filteredTrending.sort(function (a, b) {
             return b.popularity - a.popularity;
           });
-          state.filteredMovies.sort(function(a, b) {
+          state.filteredMovies.sort(function (a, b) {
             return b.popularity - a.popularity;
           });
-          state.filteredSeries.sort(function(a, b) {
+          state.filteredSeries.sort(function (a, b) {
             return b.popularity - a.popularity;
           });
           break;
         case 'rating':
-          state.filteredTrending.sort(function(a, b) {
+          state.filteredTrending.sort(function (a, b) {
             return b.vote_average - a.vote_average;
           });
-          state.filteredMovies.sort(function(a, b) {
+          state.filteredMovies.sort(function (a, b) {
             return b.vote_average - a.vote_average;
           });
-          state.filteredSeries.sort(function(a, b) {
+          state.filteredSeries.sort(function (a, b) {
             return b.vote_average - a.vote_average;
           });
           break;
         case 'date':
-          state.filteredTrending.sort(function(a, b) {
+          state.filteredTrending.sort(function (a, b) {
             var dataA;
             var dataB;
-            if (a.media_type === 'movie'){
+            if (a.media_type === 'movie') {
               dataA = new Date(a.release_date);
             } else {
               dataA = new Date(a.first_air_date);
             }
-            if (a.media_type === 'movie'){
+            if (a.media_type === 'movie') {
               dataB = new Date(b.release_date);
             } else {
               dataB = new Date(b.first_air_date);
             }
             return dataB - dataA;
           });
-          state.filteredMovies.sort(function(a, b) {
+          state.filteredMovies.sort(function (a, b) {
             const dataA = new Date(a.release_date);
             const dataB = new Date(b.release_date);
             return dataB - dataA;
           });
-          state.filteredSeries.sort(function(a, b) {
+          state.filteredSeries.sort(function (a, b) {
             const dataA = new Date(a.first_air_date);
             const dataB = new Date(b.first_air_date);
             return dataB - dataA;
           });
           break;
         case 'AZ':
-          state.filteredTrending.sort(function(a, b) {
+          state.filteredTrending.sort(function (a, b) {
             var titleA;
             var titleB;
             if (a.media_type === 'movie') {
@@ -147,17 +154,17 @@ export default createStore({
             } else {
               titleB = b.name;
             }
-            return titleA.toLowerCase().localeCompare(titleB.toLowerCase())
+            return titleA.toLowerCase().localeCompare(titleB.toLowerCase());
           });
-          state.filteredMovies.sort(function(a, b) {
-            return a.title.toLowerCase().localeCompare(b.title.toLowerCase())
+          state.filteredMovies.sort(function (a, b) {
+            return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
           });
-          state.filteredSeries.sort(function(a, b) {
-            return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+          state.filteredSeries.sort(function (a, b) {
+            return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
           });
           break;
         case 'ZA':
-          state.filteredTrending.sort(function(a, b) {
+          state.filteredTrending.sort(function (a, b) {
             var titleA;
             var titleB;
             if (a.media_type === 'movie') {
@@ -170,13 +177,13 @@ export default createStore({
             } else {
               titleB = b.name;
             }
-            return titleB.toLowerCase().localeCompare(titleA.toLowerCase())
+            return titleB.toLowerCase().localeCompare(titleA.toLowerCase());
           });
-          state.filteredMovies.sort(function(a, b) {
-            return b.title.toLowerCase().localeCompare(a.title.toLowerCase())
+          state.filteredMovies.sort(function (a, b) {
+            return b.title.toLowerCase().localeCompare(a.title.toLowerCase());
           });
-          state.filteredSeries.sort(function(a, b) {
-            return b.name.toLowerCase().localeCompare(a.name.toLowerCase())
+          state.filteredSeries.sort(function (a, b) {
+            return b.name.toLowerCase().localeCompare(a.name.toLowerCase());
           });
           break;
       }
@@ -199,7 +206,28 @@ export default createStore({
     },
     setSortOption(state, option) {
       state.sortOption = option;
-    }
+    },
+    getUser(state, userInfo) {
+      if (userInfo === 'erro') {
+        state.user.id = '';
+        state.user.name = '';
+        state.user.email = '';
+        state.user.password = '';
+      } else {
+        state.user.id = userInfo.id;
+        state.user.name = userInfo.name;
+        state.user.email = userInfo.email;
+        state.user.password = userInfo.password;
+      }
+      if (state.user.id === userInfo.id) {
+        window.alert('Usuário encontrado com sucesso');
+      } else {
+        if (state.user.id !== userInfo.id) {
+          window.alert('Falha ao encontrar usuário');
+        }
+      }
+      console.log(state.user);
+    },
   },
 
   actions: {
@@ -366,7 +394,7 @@ export default createStore({
     setFiteredLists({ commit }) {
       commit('setFiteredLists');
     },
-    sortFilteresLists({commit}){
+    sortFilteresLists({ commit }) {
       commit('sortFilteresLists');
     },
     setFavorites({ commit }, item) {
@@ -377,6 +405,20 @@ export default createStore({
     },
     setSortOption({ commit }, option) {
       commit('setSortOption', option);
-    }
+    },
+    getUser({ commit }, { email, password }) {
+      axios
+        .get('http://localhost:8800/')
+        .then((res) => {
+          let user = res.data.find((item) => item.email === email && item.password === password);
+
+          if (user === undefined) {
+            commit('getUser', 'erro');
+          } else {
+            commit('getUser', user);
+          }
+        })
+        .catch((err) => console.error(err));
+    },
   },
 });
