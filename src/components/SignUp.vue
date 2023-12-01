@@ -2,18 +2,25 @@
   <section class="signUp">
     <h2>Insira seus dados de cadastro</h2>
     <input
+      class="userInput"
       type="text"
       placeholder="Nome"
       v-model="this.user.name" />
     <input
+      class="userInput"
       type="text"
       placeholder="E-mail"
       v-model="this.user.email" />
     <input
+      class="userInput"
       type="text"
       placeholder="Senha"
       v-model="this.user.password" />
-    <button @click="addUser">entrar</button>
+    <button
+      class="userBtn"
+      @click="addUser">
+      entrar
+    </button>
   </section>
 </template>
 
@@ -34,7 +41,7 @@ export default {
   methods: {
     addUser() {
       axios
-        .post('http://localhost:8800/', {
+        .post('http://localhost:8800/user', {
           name: this.user.name,
           email: this.user.email,
           password: this.user.password,

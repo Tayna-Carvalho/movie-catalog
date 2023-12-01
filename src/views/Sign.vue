@@ -1,13 +1,13 @@
 <template>
   <RouterLink
     class="close"
-    to="/">
+    to="/"
+    @click="loadUserLists()">
     <img
       src="../assets/x-icon.svg"
       alt="close icon"
       class="closeIcon" />
   </RouterLink>
-  <router-view />
   <section class="sign">
     <div class="box">
       <div class="logotypeBG">
@@ -53,6 +53,12 @@ export default {
     return {
       selected: 1,
     };
+  },
+  methods: {
+    loadUserLists() {
+      this.$store.dispatch('getFavorites');
+      //this.$store.dispatch('getWatched');
+    },
   },
 };
 </script>
@@ -149,7 +155,7 @@ export default {
   height: 72px;
   background: var(--Branco-transparente, rgba(255, 255, 255, 0.3));
 }
-.content input {
+.content .userInput {
   width: 582px;
   height: 72px;
   padding: 12px 24px;
@@ -162,7 +168,7 @@ export default {
   font-size: 26px;
   line-height: 48px;
 }
-.content button {
+.content .userBtn {
   display: flex;
   width: 280px;
   height: 72px;
@@ -173,7 +179,7 @@ export default {
   background: var(--Roxo-Claro, #ac4dff);
   border: none;
 }
-.content button:hover {
+.content .userBtn:hover {
   border-radius: 24px;
   background: var(--Roxo-Escuro, #550899);
 }

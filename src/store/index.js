@@ -191,8 +191,19 @@ export default createStore({
     },
     setFavorites(state, item) {
       if (state.favorites.some((element) => element.id === item.id)) {
+        axios
+          .delete('http://localhost:8800/favorites/' + state.user.id + '/' + item.id)
+          .then((res) => console.log(res))
+          .catch(({ data }) => window.alert(data));
         state.favorites = state.favorites.filter((element) => element.id !== item.id);
       } else {
+        axios
+          .post('http://localhost:8800/favorites', {
+            idUser: state.user.id,
+            idMedia: item.id,
+            mediaType: item.media_type
+          })
+          .catch(({ data }) => window.alert(data));
         state.favorites.push(item);
       }
     },
@@ -227,6 +238,14 @@ export default createStore({
         }
       }
       console.log(state.user);
+    },
+    getFavorites(state, favorites) {
+      state.favorites = [];
+      var media = [...state.series, ...state.movies, ...state.trending];
+      var userFavorites = favorites.filter((item) => item.id_user === state.user.id);
+      userFavorites.forEach((item) => {
+        state.favorites.push(media.find((m) => m.id === item.id_media));
+      });
     },
   },
 
@@ -408,7 +427,7 @@ export default createStore({
     },
     getUser({ commit }, { email, password }) {
       axios
-        .get('http://localhost:8800/')
+        .get('http://localhost:8800/user')
         .then((res) => {
           let user = res.data.find((item) => item.email === email && item.password === password);
 
@@ -417,6 +436,23 @@ export default createStore({
           } else {
             commit('getUser', user);
           }
+        })
+        .catch((err) => console.error(err));
+    },
+    getFavorites({ commit }) {
+      axios
+        .get('http://localhost:8800/favorites')
+        .then((res) => {
+          commit('getFavorites', res.data);
+        })
+        .catch((err) => console.error(err));
+    },
+    getWatched({ commit }) {
+      axios
+        .get('http://localhost:8800/watched')
+        .then((res) => {
+          console.log(res.data);
+          commit('getWatched', res.data);
         })
         .catch((err) => console.error(err));
     },

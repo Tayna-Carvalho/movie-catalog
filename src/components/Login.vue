@@ -2,14 +2,20 @@
   <section class="login">
     <h2>Entre com seu e-mail e senha</h2>
     <input
+      class="userInput"
       type="text"
       placeholder="e-mail"
       v-model="this.user.email" />
     <input
+      class="userInput"
       type="text"
       placeholder="Senha"
       v-model="this.user.password" />
-    <button @click="getUser()">entrar</button>
+    <button
+      class="userBtn"
+      @click="getUser()">
+      entrar
+    </button>
   </section>
 </template>
 
