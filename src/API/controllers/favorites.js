@@ -16,7 +16,6 @@ export const addFavorites = (req, res) => {
 };
 export const deleteFavorites = (req, res) => {
   const q = 'DELETE FROM favorite WHERE id_user = ? AND id_media = ?';
-
   db.query(q, [req.params.idUser, req.params.idMedia], (err) => {
     if (err) {
       return res.status(500).json('Erro ao remover favorito.');

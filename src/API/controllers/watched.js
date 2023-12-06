@@ -7,18 +7,19 @@ export const getWatched = (_, res) => {
   });
 };
 export const addWatched = (req, res) => {
-  const q = 'INSERT INTO watched(id_user, id_media, media_type) VALUES(?)';
-  const values = [req.body.idUser, req.body.idMedia, mediaType];
+  const q = 'INSERT INTO watched(id_user, id_media) VALUES(?)';
+  const values = [req.body.idUser, req.body.idMedia];
   db.query(q, [values], (err) => {
     if (err) return res.json(err);
     return res.status(200).json('assistido adicionado com sucesso.');
   });
 };
 export const deleteWatched = (req, res) => {
-  const q = 'DELETE FROM watched WHERE user_id = ? and media_id = ?';
-  const values = [req.body.idUser, req.body.idMedia];
-  db.query(q, [values], (err) => {
-    if (err) return res.json(err);
-    return res.status(200).json('assistido removido com sucesso.');
+  const q = 'DELETE FROM watched WHERE id_user = ? AND id_media = ?';
+  db.query(q, [req.params.idUser, req.params.idMedia], (err) => {
+    if (err) {
+      return res.status(500).json('Erro ao remover favorito.');
+    }
+    return res.status(200).json('Favorito removido com sucesso.');
   });
 };

@@ -208,11 +208,20 @@ export default createStore({
     },
     setWatched(state, item) {
       if (state.watched.some((element) => element.id === item.id)) {
+        axios
+          .delete('http://localhost:8800/watched/' + state.user.id + '/' + item.id)
+          .then((res) => console.log(res))
+          .catch(({ data }) => window.alert(data));
         state.watched = state.watched.filter((element) => element.id !== item.id);
       } else {
+        axios
+          .post('http://localhost:8800/watched', {
+            idUser: state.user.id,
+            idMedia: item.id,
+          })
+          .catch(({ data }) => window.alert(data));
         state.watched.push(item);
       }
-      console.log(state.watched);
     },
     setSortOption(state, option) {
       state.sortOption = option;

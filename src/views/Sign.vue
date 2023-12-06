@@ -57,7 +57,7 @@ export default {
   methods: {
     loadUserLists() {
       this.$store.dispatch('getFavorites');
-      //this.$store.dispatch('getWatched');
+      this.$store.dispatch('getWatched');
     },
   },
 };
