@@ -201,7 +201,6 @@ export default createStore({
           .post('http://localhost:8800/favorites', {
             idUser: state.user.id,
             idMedia: item.id,
-            mediaType: item.media_type
           })
           .catch(({ data }) => window.alert(data));
         state.favorites.push(item);

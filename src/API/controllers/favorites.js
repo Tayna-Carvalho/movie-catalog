@@ -7,8 +7,8 @@ export const getFavorites = (_, res) => {
   });
 };
 export const addFavorites = (req, res) => {
-  const q = 'INSERT INTO favorite(id_user, id_media, media_type) VALUES(?)';
-  const values = [req.body.idUser, req.body.idMedia, req.body.mediaType];
+  const q = 'INSERT INTO favorite(id_user, id_media) VALUES(?)';
+  const values = [req.body.idUser, req.body.idMedia];
   db.query(q, [values], (err) => {
     if (err) return res.json(err);
     return res.status(200).json('favorito adicionado com sucesso.');
