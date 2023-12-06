@@ -1,8 +1,7 @@
 <template>
   <RouterLink
     class="close"
-    to="/"
-    @click="loadUserLists()">
+    to="/">
     <img
       src="../assets/x-icon.svg"
       alt="close icon"
@@ -53,12 +52,6 @@ export default {
     return {
       selected: 1,
     };
-  },
-  methods: {
-    loadUserLists() {
-      this.$store.dispatch('getFavorites');
-      this.$store.dispatch('getWatched');
-    },
   },
 };
 </script>

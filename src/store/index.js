@@ -238,14 +238,9 @@ export default createStore({
         state.user.email = userInfo.email;
         state.user.password = userInfo.password;
       }
-      if (state.user.id === userInfo.id) {
-        window.alert('Usuário encontrado com sucesso');
-      } else {
-        if (state.user.id !== userInfo.id) {
-          window.alert('Falha ao encontrar usuário');
-        }
+      if (state.user.id !== userInfo.id) {
+        window.alert('Falha ao encontrar usuário');
       }
-      console.log(state.user);
     },
     getFavorites(state, favorites) {
       state.favorites = [];
@@ -253,6 +248,14 @@ export default createStore({
       var userFavorites = favorites.filter((item) => item.id_user === state.user.id);
       userFavorites.forEach((item) => {
         state.favorites.push(media.find((m) => m.id === item.id_media));
+      });
+    },
+    getWatched(state, watched) {
+      state.watched = [];
+      var media = [...state.series, ...state.movies, ...state.trending];
+      var userwatched = watched.filter((item) => item.id_user === state.user.id);
+      userwatched.forEach((item) => {
+        state.watched.push(media.find((m) => m.id === item.id_media));
       });
     },
   },
@@ -459,7 +462,6 @@ export default createStore({
       axios
         .get('http://localhost:8800/watched')
         .then((res) => {
-          console.log(res.data);
           commit('getWatched', res.data);
         })
         .catch((err) => console.error(err));

@@ -18,8 +18,8 @@
       v-model="this.user.password" />
     <button
       class="userBtn"
-      @click="addUser">
-      entrar
+      @click="addUser()">
+      Cadastrar
     </button>
   </section>
 </template>
@@ -49,7 +49,7 @@ export default {
         .then(({ data }) => {
           window.alert(data);
         })
-        .catch(({ data }) => window.alert(data));
+        .catch(() => window.alert('Falha ao cadastrar usuário'));
     },
   },
 };
