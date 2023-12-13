@@ -43,6 +43,7 @@ export default createStore({
     },
     setCurrentItem(state, item) {
       state.currentItem = item;
+      localStorage.setItem('currentItem', JSON.stringify(state.currentItem));
     },
     loadCurrentVideo(state, movieKey) {
       state.currentItem.videoKey = movieKey;
@@ -70,6 +71,7 @@ export default createStore({
       } else {
         state.selectedGenres.push(genre.id);
       }
+      localStorage.setItem('selectedGenres', JSON.stringify(state.selectedGenres));
     },
     setFiteredLists(state) {
       if (state.selectedGenres.length === 0) {
@@ -205,6 +207,7 @@ export default createStore({
           .catch(({ data }) => window.alert(data));
         state.favorites.push(item);
       }
+      localStorage.setItem('favorites', JSON.stringify(state.favorites));
     },
     setWatched(state, item) {
       if (state.watched.some((element) => element.id === item.id)) {
@@ -222,9 +225,11 @@ export default createStore({
           .catch(({ data }) => window.alert(data));
         state.watched.push(item);
       }
+      localStorage.setItem('watched', JSON.stringify(state.watched));
     },
     setSortOption(state, option) {
       state.sortOption = option;
+      localStorage.setItem('sortOption', JSON.stringify(state.sortOption));
     },
     getUser(state, userInfo) {
       if (userInfo === 'erro') {
@@ -241,6 +246,7 @@ export default createStore({
       if (state.user.id !== userInfo.id) {
         window.alert('Falha ao encontrar usuário');
       }
+      localStorage.setItem('user', JSON.stringify(state.user));
     },
     getFavorites(state, favorites) {
       state.favorites = [];
@@ -258,9 +264,32 @@ export default createStore({
         state.watched.push(media.find((m) => m.id === item.id_media));
       });
     },
+    loadLocalStorage(state) {
+      if (localStorage.getItem('user') !== null) {
+        state.user = JSON.parse(localStorage.getItem('user'));
+      }
+      if (localStorage.getItem('selectedGenres') !== null) {
+        state.selectedGenres = JSON.parse(localStorage.getItem('selectedGenres'));
+      }
+      if (localStorage.getItem('favorites') !== null) {
+        state.favorites = JSON.parse(localStorage.getItem('favorites'));
+      }
+      if (localStorage.getItem('watched') !== null) {
+        state.watched = JSON.parse(localStorage.getItem('watched'));
+      }
+      if (localStorage.getItem('sortOption') !== null) {
+        state.sortOption = JSON.parse(localStorage.getItem('sortOption'));
+      }
+      if (localStorage.getItem('currentItem') !== null) {
+        state.currentItem = JSON.parse(localStorage.getItem('currentItem'));
+      }
+    },
   },
 
   actions: {
+    loadLocalStorage({ commit }) {
+      commit('loadLocalStorage');
+    },
     loadTrending({ commit }) {
       movieDBInstance
         .get('trending/all/week')

@@ -14,6 +14,7 @@ export default {
     this.$store.dispatch('loadMovies');
     this.$store.dispatch('loadSeries');
     this.$store.dispatch('loadGenre');
+    this.$store.dispatch('loadLocalStorage');
   },
 };
 </script>
