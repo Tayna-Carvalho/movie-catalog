@@ -284,6 +284,15 @@ export default createStore({
         state.currentItem = JSON.parse(localStorage.getItem('currentItem'));
       }
     },
+    logOut(state) {
+      state.user.id = '';
+      state.user.name = '';
+      state.user.email = '';
+      state.user.password = '';
+      state.favorites = [];
+      state.watched = [];
+      localStorage.setItem('user', JSON.stringify(state.user));
+    },
   },
 
   actions: {
@@ -494,6 +503,9 @@ export default createStore({
           commit('getWatched', res.data);
         })
         .catch((err) => console.error(err));
+    },
+    logOut({ commit }) {
+      commit('logOut');
     },
   },
 });

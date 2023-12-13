@@ -76,7 +76,12 @@
             >Entrar</router-link
           >
         </h3>
-        <h3 v-else>Perfil</h3>
+        <img
+          class="logoutIcon"
+          src="../assets/logout-icon-white.svg"
+          alt="Log out"
+          @click="logOut()"
+          v-else />
       </section>
     </div>
   </header>
@@ -96,6 +101,11 @@ export default {
   computed: {
     user() {
       return this.$store.state.user;
+    },
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch('logOut');
     },
   },
 };
