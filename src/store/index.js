@@ -476,7 +476,9 @@ export default createStore({
     },
     getUser({ commit }, { email, password }) {
       axios
-        .get('http://localhost:8800/user')
+        .get(
+          'mysql://qe9nbhtaf8fsfgq0tkh5:pscale_pw_ir4sUGRCGfsRjQKyGAJynOyNcS3NEro5nLlPFoMz9zx@aws.connect.psdb.cloud/movie-db?ssl={"rejectUnauthorized":true}/user'
+        )
         .then((res) => {
           let user = res.data.find((item) => item.email === email && item.password === password);
 
@@ -490,7 +492,9 @@ export default createStore({
     },
     getFavorites({ commit }) {
       axios
-        .get('http://localhost:8800/favorites')
+        .get(
+          'mysql://qe9nbhtaf8fsfgq0tkh5:pscale_pw_ir4sUGRCGfsRjQKyGAJynOyNcS3NEro5nLlPFoMz9zx@aws.connect.psdb.cloud/movie-db?ssl={"rejectUnauthorized":true}/favorites'
+        )
         .then((res) => {
           commit('getFavorites', res.data);
         })
@@ -498,7 +502,9 @@ export default createStore({
     },
     getWatched({ commit }) {
       axios
-        .get('http://localhost:8800/watched')
+        .get(
+          'mysql://qe9nbhtaf8fsfgq0tkh5:pscale_pw_ir4sUGRCGfsRjQKyGAJynOyNcS3NEro5nLlPFoMz9zx@aws.connect.psdb.cloud/movie-db?ssl={"rejectUnauthorized":true}/watched'
+        )
         .then((res) => {
           commit('getWatched', res.data);
         })
