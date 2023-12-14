@@ -8,11 +8,10 @@ export default {
   name: 'app',
   components: { Header },
   created() {
-    this.$store.dispatch('loadTrending');
-    this.$store.dispatch('loadMovies');
-    this.$store.dispatch('loadSeries');
-    this.$store.dispatch('loadGenre');
-    this.$store.dispatch('loadLocalStorage');
+    this.$store.dispatch('loadLocalStorage').then
+    if (this.$store.state.user.id === '') {
+      this.$router.push('/entrar');
+    }
   },
 };
 </script>

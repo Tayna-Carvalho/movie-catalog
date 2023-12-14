@@ -1,20 +1,6 @@
 <template>
-  <RouterLink
-    class="close"
-    to="/">
-    <img
-      src="../assets/x-icon.svg"
-      alt="close icon"
-      class="closeIcon" />
-  </RouterLink>
   <section class="sign">
     <div class="box">
-      <div class="logotypeBG">
-        <img
-          class="logotype"
-          src="../assets/logo-purple.svg"
-          alt="logotype" />
-      </div>
       <div class="content">
         <div class="title">
           <h2
@@ -92,22 +78,6 @@ export default {
   justify-content: center;
   align-items: center;
   gap: 40px;
-}
-.sign .box .logotypeBG {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 176px;
-  height: 176px;
-  flex-shrink: 0;
-  background-color: rgba(27, 27, 27, 0.7);
-  filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.15));
-  border-radius: 50%;
-}
-.sign .box .logotypeBG .logotype {
-  width: 80px;
-  height: 88.814px;
-  flex-shrink: 0;
 }
 .sign .box .content {
   display: flex;

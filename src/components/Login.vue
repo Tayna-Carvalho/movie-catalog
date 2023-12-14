@@ -13,10 +13,11 @@
       v-model="this.user.password" />
     <button
       class="userBtn"
-      to="/"
+      to=""
       @click="getUser()">
       Entrar
     </button>
+    <router-view />
   </section>
 </template>
 
@@ -34,10 +35,9 @@ export default {
   methods: {
     getUser() {
       this.$store.dispatch('getUser', this.user);
-
       if (this.userStore.id !== '') {
-        this.$store.dispatch('getFavorites');
-        this.$store.dispatch('getWatched');
+        console.log(this.userStore.id);
+        console.log(this.$router);
         this.$router.push('/');
       }
     },
