@@ -41,7 +41,7 @@ export default {
   methods: {
     addUser() {
       axios
-        .post('http://localhost:8800/user', {
+        .post('http://aws.connect.psdb.cloud:8800/user', {
           name: this.user.name,
           email: this.user.email,
           password: this.user.password,

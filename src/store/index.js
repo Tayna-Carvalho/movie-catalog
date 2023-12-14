@@ -51,7 +51,7 @@ export default createStore({
     },
     getUser({ commit }, { email, password }) {
       axios
-        .get('http://localhost:8800/user')
+        .get('http://aws.connect.psdb.cloud:8800/user')
         .then((res) => {
           let user = res.data.find((item) => item.email === email && item.password === password);
 
